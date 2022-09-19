@@ -1,0 +1,132 @@
+@keyframes focus {
+    0% {
+        backdrop-filter: blur(0px);
+        opacity: 0
+    }
+
+    90% {
+        backdrop-filter: blur(0px)
+    }
+
+    91% {
+        backdrop-filter: blur(6px)
+    }
+
+    94% {
+        backdrop-filter: blur(1px)
+    }
+
+    98% {
+        backdrop-filter: blur(4px)
+    }
+
+    100% {
+        backdrop-filter: blur(0px);
+        opacity: 1
+    }
+}
+
+@keyframes blur {
+    0% {
+        filter: blur(0px);
+    }
+
+    90% {
+        filter: blur(0px)
+    }
+
+    91% {
+        filter: blur(6px)
+    }
+
+    94% {
+        filter: blur(1px)
+    }
+
+    98% {
+        filter: blur(4px)
+    }
+
+    100% {
+        filter: blur(0px);
+    }
+}
+
+#visual {
+    position: relative;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    background: radial-gradient(circle, rgba(121, 9, 63, 0.8) 15%, rgba(0, 212, 255, 0) 64%);
+    overflow: hidden;
+}
+
+#info {
+    position: absolute;
+    z-index: 20;
+    width: 15%;
+    height: 100%;
+}
+
+#info > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+    font-size: 30px;
+    color: rgba(255, 255, 255, 0.5);
+    text-shadow: 0px 0px 20px red;
+    border-right: 2px solid rgba(255, 255, 255, 0.7);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+#blur {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    animation: focus 10s 5s ease-in-out infinite;
+}
+
+canvas {
+    pointer-events: auto;
+    touch-action: none;
+}
+
+.annotation {
+    outline: none;
+    border: none;
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 2px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    pointer-events: none;
+    /* animation: blur 10s 4.2s ease-in-out infinite; */
+
+}
+
+@media (orientation: landscape) {
+
+    #visual {
+        width: 90vh;
+        height: 90vh;
+    }
+
+}
+
+@media (orientation: portrait) {
+
+    #visual {
+        width: 90vw;
+        height: 90vw;
+    }
+
+}
