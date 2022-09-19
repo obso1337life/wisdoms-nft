@@ -59,7 +59,7 @@ export default function Particles({ count, mouse }) {
             <pointLight ref={light} distance={40} intensity={8} color="red" />
             <instancedMesh ref={mesh} args={[null, null, count]}>
                 {/* <dodecahedronGeometry args={[0.1, 0]} /> */}
-                <sphereGeometry args={[0.1, 32]} />
+                <sphereGeometry args={[0.2, 32]} />
                 <meshPhysicalMaterial
                     envMapIntensity={0.4}
                     map={texture}
