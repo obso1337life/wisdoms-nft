@@ -18,54 +18,18 @@ export default function MainVisual(props) {
         type
     } = props
 
-    const [intVal, setIntVal] = useState(null)
-    const [charString, setCharString] = useState(null)
-    const [charVal, setCharVal] = useState(null)
-    const [long, setLong] = useState(null)
-    const [short, setShort] = useState(null)
-    const [longInt, setLongInt] = useState(null)
-    const [shortInt, setShortInt] = useState(null)
-    const [high, setHigh] = useState(null)
-    const [low, setLow] = useState(null)
-
     const mouse = useRef([0, 0])
 
     extend({ LUTPass })
 
-    useEffect(() => {
-
-        let iV = id.replace(/\D/g, '')
-        let cS = id.replace(/\d/g, '')
-        setIntVal(iV)
-        setCharString(cS)
-
-        let cV = 0;
-        for (let i = 0; i < cS.length; i++) {
-            cV += cS.charCodeAt(i);
-        };
-        cV += '';
-        setCharVal(cV)
-
-        let l = iV.length >= cV.length ? iV : cV
-        let s = l === iV ? cV : iV
-        l = l.slice(0, s.length)
-        setLong(l)
-        setShort(s)
-
-        let lI = parseInt(l)
-        let sI = parseInt(s)
-        setLongInt(lI)
-        setShortInt(sI)
-
-        let h = lI >= sI ? lI : sI;
-        let lo= h === lI ? sI : lI;
-        setHigh(h)
-        setLow(lo)
-
-    }, [id])
-
     return (
-        <div id="visual">
+        <div
+            id="visual"
+            style={{
+                // background: `radial-gradient(ellipse at ${perc1}% ${perc2}%, rgba(${r1}, ${g1}, ${b1}, ${a1}), transparent), radial-gradient(ellipse at ${perc3}% ${perc4}%, rgb(${r2}, ${g2}, ${b2}))`
+                // background: 'radial-gradient(circle, rgba(121, 9, 63, 0.8) 15%, rgba(0, 212, 255, 0) 64%)'
+            }}
+        >
             <div id="info">
                 <div>#</div>
                 <div>#</div>

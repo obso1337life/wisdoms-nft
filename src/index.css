@@ -5,7 +5,7 @@
     user-select: none;
 }
 
-body {
+/* body {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,4 +13,4 @@ body {
     height: 100vh;
     background-color: black;
     background: linear-gradient(60deg, rgba(2,0,36,1) 7%, rgba(121,9,64,1) 25%, rgba(0,212,255,1) 64%);
-}
+} */
