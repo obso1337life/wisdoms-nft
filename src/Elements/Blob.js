@@ -35,16 +35,21 @@ const transform = ({ position, normal, dummy: object }) => {
 }
 
 export const Blob = forwardRef((props, ref) => {
+
+    const {
+        type
+    } = props
+
     const geom = useRef()
     const blobRef = useRef()
     const meshRef = useRef(null)
-    const texture = useTexture('/textures/blob/01/01.jpg')
+    const texture = useTexture(`/textures/blob/${type}/${type}.jpg`)
     const [
         displacementMap, 
         normalMap
     ] = useLoader(TextureLoader, [
-        '/textures/blob/01/displacementMap.png',
-        '/textures/blob/01/NormalMap.png'
+        `/textures/blob/${type}/displacementMap.png`,
+        `/textures/blob/${type}/NormalMap.png`
     ])
 
     useEffect(() => {

@@ -1,13 +1,28 @@
 import * as THREE from 'three'
 import React, { useRef, useMemo } from 'react'
-import { useFrame, useThree } from '@react-three/fiber'
+import { useFrame, useThree, useLoader } from '@react-three/fiber'
 import { ComputedAttribute, useTexture, Html, Sampler } from '@react-three/drei'
+import { TextureLoader } from 'three/src/loaders/TextureLoader'
 // import './styles.css'
 
-export default function Particles({ count, mouse }) {
+export default function Particles(props) {
+
+    const {
+        type,
+        count,
+        mouse
+    } = props
+
     const mesh = useRef()
     const light = useRef()
-    const texture = useTexture('/textures/blob/01/01.jpg')
+    const texture = useTexture(`/textures/blob/${type}/${type}.jpg`)
+    const [
+        displacementMap,
+        normalMap
+    ] = useLoader(TextureLoader, [
+        `/textures/blob/${type}/displacementMap.png`,
+        `/textures/blob/${type}/NormalMap.png`
+    ])
     const { size, viewport } = useThree()
     const aspect = size.width / viewport.width
 
@@ -59,8 +74,10 @@ export default function Particles({ count, mouse }) {
             <pointLight ref={light} distance={40} intensity={8} color="red" />
             <instancedMesh ref={mesh} args={[null, null, count]}>
                 {/* <dodecahedronGeometry args={[0.1, 0]} /> */}
-                <sphereGeometry args={[0.2, 32]} />
+                <sphereGeometry args={[0.1, 32]} />
                 <meshPhysicalMaterial
+                    normalMap={normalMap}
+                    displacementMap={displacementMap}
                     envMapIntensity={0.4}
                     map={texture}
                     clearcoat={0.8}

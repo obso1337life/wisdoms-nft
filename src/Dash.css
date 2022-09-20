@@ -1,0 +1,6 @@
+#dash {
+    position: fixed;
+    z-index: 30;
+    top: 0;
+    left: 0;
+}
