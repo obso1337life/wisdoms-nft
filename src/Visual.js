@@ -46,8 +46,8 @@ export default function MainVisual(props) {
         cV += '';
         setCharVal(cV)
 
-        let l = intVal.length >= charVal.length ? intVal : charVal
-        let s = l === intVal ? charVal : intVal
+        let l = iV.length >= cV.length ? iV : cV
+        let s = l === iV ? cV : iV
         l = l.slice(0, s.length)
         setLong(l)
         setShort(s)
