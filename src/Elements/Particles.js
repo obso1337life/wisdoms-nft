@@ -15,13 +15,13 @@ export default function Particles(props) {
 
     const mesh = useRef()
     const light = useRef()
-    const texture = useTexture(`/textures/blob/${type}/${type}.jpg`)
+    const texture = useTexture(`./textures/blob/${type}/${type}.jpg`)
     const [
         displacementMap,
         normalMap
     ] = useLoader(TextureLoader, [
-        `/textures/blob/${type}/displacementMap.png`,
-        `/textures/blob/${type}/NormalMap.png`
+        `./textures/blob/${type}/displacementMap.png`,
+        `./textures/blob/${type}/NormalMap.png`
     ])
     const { size, viewport } = useThree()
     const aspect = size.width / viewport.width
