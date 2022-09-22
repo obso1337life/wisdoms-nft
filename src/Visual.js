@@ -30,14 +30,6 @@ export default function MainVisual(props) {
                 // background: 'radial-gradient(circle, rgba(121, 9, 63, 0.8) 15%, rgba(0, 212, 255, 0) 64%)'
             }}
         >
-            <div id="info">
-                <div>#</div>
-                <div>#</div>
-                <div>#</div>
-                <div>#</div>
-                <div>#</div>
-            </div>
-            <div id="blur"></div>
             <Canvas
                 shadows
                 dpr={[1, 2]}

@@ -15,6 +15,10 @@ export default function Dash(props) {
                 <option value="DFDFDAHSABBANPNs2WH5Gw9NZ34598aW20c0dfhhj475nnf">id 1</option>
                 <option value="tz1YggPNs9WH5Gw9NZj6BgdaW2hPwQ6YjWUnf">id 2</option>
                 <option value="0PNs2WH5G45678daWffhPwQzzzzzzzzzzz">id 3</option>
+                <option value="abcdef9876566klklklklklnf">id 4</option>
+                <option value="az999999w9NZj6BgdaW2hPwQ597jasasasnf">id 5</option>
+                <option value="f71YMPNs2Whell666NZj6BgggaW2hPwQ6Yj555poop">id 6</option>
+                <option value="tz1YMPNs2WH5Gw9NZj6BgdaW2hPwQ6YjWUnf">id 7</option>
             </select>
 
             <select id="type" name="type" onChange={(e) => setType(e.target.value) }>

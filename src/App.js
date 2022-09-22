@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import Dash from './Dash';
+import Info from './Info';
 import Visual from './Visual';
 import './App.css';
 
@@ -96,6 +97,18 @@ function App() {
             <Dash
                 setId={setId}
                 setType={setType}
+            />
+            <Info
+                id={id}
+                type={type}
+                perc1={perc1}
+                r1={r1}
+                r2={r2}
+                g1={g1}
+                g2={g2}
+                b1={b1}
+                b2={b2}
+                a1={a1}
             />
             <Visual
                 id={id}
