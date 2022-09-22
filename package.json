@@ -17,6 +17,7 @@
     "react-scripts": "5.0.1",
     "three": "^0.144.0",
     "three-custom-shader-material": "^4.0.0",
+    "three-stdlib": "^2.16.1",
     "threejs-meshline": "^2.0.12",
     "web-vitals": "^2.1.4"
   },

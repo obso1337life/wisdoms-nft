@@ -1,7 +1,7 @@
-import * as THREE from 'three'
 import React, { useEffect, useRef, forwardRef, useMemo } from 'react'
 import { useFrame, useLoader } from '@react-three/fiber'
 import { ComputedAttribute, useTexture, Html, Sampler } from '@react-three/drei'
+import * as THREE from 'three'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
 import Perlin from 'perlin.js'
 import { Bush } from './Bush'
