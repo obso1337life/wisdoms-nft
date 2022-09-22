@@ -3,7 +3,7 @@ import { Group, Texture } from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Billboard, Plane, useTexture } from '@react-three/drei'
 
-const CLOUD_URL = '/textures/cloud/cloud.png'
+const CLOUD_URL = process.env.PUBLIC_URL + '/textures/cloud/cloud.png'
 // const CLOUD_URL = 'https://rawcdn.githack.com/pmndrs/drei-assets/9225a9f1fbd449d9411125c2f419b843d0308c9f/cloud.png'
 
 const Cloud = ({

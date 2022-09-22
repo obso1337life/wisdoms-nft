@@ -43,13 +43,13 @@ export const Blob = forwardRef((props, ref) => {
     const geom = useRef()
     const blobRef = useRef()
     const meshRef = useRef(null)
-    const texture = useTexture(`${process.env.PUBLIC_URL}/textures/blob/${type}/${type}.jpg`)
+    const texture = useTexture(process.env.PUBLIC_URL + `/textures/blob/${type}/${type}.jpg`)
     const [
         displacementMap, 
         normalMap
     ] = useLoader(TextureLoader, [
-        `${process.env.PUBLIC_URL}/textures/blob/${type}/displacementMap.png`,
-        `${process.env.PUBLIC_URL}/textures/blob/${type}/NormalMap.png`
+        process.env.PUBLIC_URL + `/textures/blob/${type}/displacementMap.png`,
+        process.env.PUBLIC_URL + `/textures/blob/${type}/NormalMap.png`
     ])
 
     useEffect(() => {
