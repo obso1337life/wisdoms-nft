@@ -1,6 +1,5 @@
 #visual {
     position: relative;
-    /* border: 2px solid rgba(255, 255, 255, 0.5); */
     border-radius: 10px;
     background: radial-gradient(circle, rgba(121, 9, 63, 0.8) 15%, rgba(0, 212, 255, 0) 64%);
     overflow: hidden;
