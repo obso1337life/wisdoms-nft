@@ -16,7 +16,16 @@ export default function MainVisual(props) {
     const {
         id,
         type,
-        value
+        value,
+        perc1,
+        perc2,
+        r1,
+        r2,
+        g1,
+        g2,
+        b1,
+        b2,
+        a1
     } = props
 
     const mouse = useRef([0, 0])
@@ -27,8 +36,7 @@ export default function MainVisual(props) {
         <div
             id="visual"
             style={{
-                // background: `radial-gradient(ellipse at ${perc1}% ${perc2}%, rgba(${r1}, ${g1}, ${b1}, ${a1}), transparent), radial-gradient(ellipse at ${perc3}% ${perc4}%, rgb(${r2}, ${g2}, ${b2}))`
-                // background: 'radial-gradient(circle, rgba(121, 9, 63, 0.8) 15%, rgba(0, 212, 255, 0) 64%)'
+                background: `radial-gradient(circle, rgba(${r2}, ${g2}, ${b2}, 0.8) 15%, transparent 64%)`
             }}
         >
             <Canvas
@@ -55,6 +63,7 @@ export default function MainVisual(props) {
                         <Hair>
                             <Blob
                                 type={type}
+                                color={`rgb(${r1}, ${g1}, ${b1})`}
                             />
                         </Hair>
                     </PresentationControls>
@@ -66,7 +75,9 @@ export default function MainVisual(props) {
                         mouse={mouse}
                         type={type}
                     />
-                    <Clouds />
+                    <Clouds
+                        color={`rgb(${r1}, ${g1}, ${b1})`}
+                    />
                     <Effects />
                     {/* <Sparks count={20} mouse={mouse} colors={['#A2CCB6', '#FCEEB5', '#EE786E', '#e0feff', 'lightpink', 'lightblue']} /> */}
                     <CameraShake

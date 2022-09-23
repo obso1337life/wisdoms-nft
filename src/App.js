@@ -37,7 +37,7 @@ function App() {
         let small = big === val1 ? val2 : val1;
         let perc = (small / big);
         let val = 255 * perc;
-        return val;
+        return Math.floor(val);
     };
 
     // useEffect(() => {
@@ -95,8 +95,6 @@ function App() {
         <div
             id="app"
             style={{
-                // backgroundColor: 'blue',
-                // background: `radial-gradient(ellipse at ${perc1}% ${perc2}%, rgba(${r1}, ${g1}, ${b1}, ${a1}, red))`
                 background: `linear-gradient(${perc1}deg, rgba(${r1}, ${g1}, ${b1}, 1) 7%, rgba(${r2}, ${g2}, ${b2}, ${a1}) 25%, rgba(${r1}, ${g2}, ${b2}, 1) 64%)`
             }}
         >
@@ -120,6 +118,15 @@ function App() {
                 id={id}
                 type={type}
                 value={value}
+                perc1={perc1}
+                perc2={perc2}
+                r1={r1}
+                r2={r2}
+                g1={g1}
+                g2={g2}
+                b1={b1}
+                b2={b2}
+                a1={a1}
             />
         </div>
     );

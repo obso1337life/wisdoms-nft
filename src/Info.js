@@ -19,11 +19,11 @@ export default function Dash(props) {
     return (
         <div id="info">
             <div id="sidebar">
-                <div>#</div>
-                <div>#</div>
-                <div>#</div>
-                <div>#</div>
-                <div>#</div>
+                <div style={{textShadow: `0px 0px 5px rgb(${r1}, ${g1}, ${b1})`}}>#</div>
+                <div style={{textShadow: `0px 0px 5px rgb(${r1}, ${g1}, ${b1})`}}>#</div>
+                <div style={{textShadow: `0px 0px 5px rgb(${r1}, ${g1}, ${b1})`}}>#</div>
+                <div style={{textShadow: `0px 0px 5px rgb(${r1}, ${g1}, ${b1})`}}>#</div>
+                <div style={{textShadow: `0px 0px 5px rgb(${r1}, ${g1}, ${b1})`}}>#</div>
             </div>
             {/* <p>{id}</p> */}
             <div id="blur"></div>

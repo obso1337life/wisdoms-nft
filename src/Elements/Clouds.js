@@ -6,21 +6,24 @@ import { Billboard, Plane, useTexture } from '@react-three/drei'
 const CLOUD_URL = process.env.PUBLIC_URL + '/textures/cloud/cloud.png'
 // const CLOUD_URL = 'https://rawcdn.githack.com/pmndrs/drei-assets/9225a9f1fbd449d9411125c2f419b843d0308c9f/cloud.png'
 
-const Cloud = ({
-    opacity = 0.5,
-    opacityOffset = 0.5,
-    speed = 0.4,
-    width = 10,
-    depth = 1.5,
-    segments = 20,
-    texture = CLOUD_URL,
-    color = '#ffffff',
-    depthTest = true,
-    ...props
-}) => {
+const Cloud = (props) => {
+
+    const {
+        depthTest,
+        opacity,
+        opacityOffset,
+        speed,
+        color
+    } = props
+
+    const width = 10
+    const depth = 1.5
+    const segments = 20
+    const texture = CLOUD_URL
     const gl = useThree((state) => state.gl)
     const group = useRef()
     const cloudTexture = useTexture(texture)
+
     const clouds = React.useMemo(
         () =>
             [...new Array(segments)].map((_, index) => ({
@@ -53,7 +56,8 @@ const Cloud = ({
                                 map={cloudTexture}
                                 map-encoding={gl.outputEncoding}
                                 transparent
-                                opacity={(scale / 6) * density * opacity}
+                                opacity={1}
+                                // opacity={(scale / 6) * density * opacity}
                                 depthTest={depthTest}
                                 color={color}
                             />
@@ -65,15 +69,21 @@ const Cloud = ({
     )
 }
 
-export const Clouds = () => {
+export const Clouds = (props) => {
+
+    const {
+        color
+    } = props
+
     return (
         <group>
-            <Cloud depthTest={false} position={[-10, -6, -10]} speed={0.2} opacity={0.12} opacityOffset={0.4} />
-            <Cloud depthTest={false} position={[10, 6, -15]} speed={0.2} opacity={0.25} opacityOffset={0.25} />
-            <Cloud depthTest={false} position={[0, 10, 0]} speed={0.2} opacity={0.21} opacityOffset={0.2} />
-            <Cloud depthTest={false} position={[0, -10, 0]} speed={0.2} opacity={0.22} opacityOffset={0.2} />
-            <Cloud depthTest={false} position={[-10, -6, 15]} speed={0.2} opacity={0.16} opacityOffset={0.3} />
-            <Cloud depthTest={false} position={[10, 6, 10]} speed={0.2} opacity={0.28} opacityOffset={0.25} />
+            <Cloud depthTest={false} position={[-10, -6, -10]} speed={0.2} opacity={0.12} opacityOffset={0.4} color={color} />
+            <Cloud depthTest={false} position={[10, 6, -15]} speed={0.2} opacity={0.25} opacityOffset={0.25} color={color} />
+            <Cloud depthTest={false} position={[0, 10, 0]} speed={0.2} opacity={0.21} opacityOffset={0.2} color={color} />
+            <Cloud depthTest={false} position={[0, -10, 0]} speed={0.2} opacity={0.22} opacityOffset={0.2} color={color} />
+            <Cloud depthTest={false} position={[-10, -6, 15]} speed={0.2} opacity={0.16} opacityOffset={0.3} color={color} />
+            <Cloud depthTest={false} position={[10, 6, 10]} speed={0.2} opacity={0.28} opacityOffset={0.25} color={color} />
         </group>
     )
+    
 }

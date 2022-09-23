@@ -37,7 +37,8 @@ const transform = ({ position, normal, dummy: object }) => {
 export const Blob = forwardRef((props, ref) => {
 
     const {
-        type
+        type,
+        color
     } = props
 
     const geom = useRef()
@@ -110,7 +111,7 @@ export const Blob = forwardRef((props, ref) => {
                 position={[0.8, -0.5, 1.5]}
             // occlude
             >
-                <p className="annotation">centerpoint #09566854</p>
+                <p className="annotation" style={{textShadow: `0px 0px 5px ${color}`}}>centerpoint #09566854</p>
             </Html>
         </group>
     )
