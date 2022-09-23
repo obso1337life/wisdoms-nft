@@ -15,7 +15,8 @@ export default function MainVisual(props) {
 
     const {
         id,
-        type
+        type,
+        value
     } = props
 
     const mouse = useRef([0, 0])
@@ -61,7 +62,7 @@ export default function MainVisual(props) {
                         preset="warehouse"
                     />
                     <Particles
-                        count={500}
+                        count={value}
                         mouse={mouse}
                         type={type}
                     />

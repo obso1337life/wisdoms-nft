@@ -9,6 +9,7 @@ function App() {
 
     const [id, setId] = useState('DFDFDAHSABBANPNs2WH5Gw9NZ34598aW20c0dfhhj475nnf')
     const [type, setType] = useState('01')
+    const [value, setValue] = useState(300)
 
     const [intVal, setIntVal] = useState(null)
     const [charString, setCharString] = useState(null)
@@ -39,9 +40,14 @@ function App() {
         return val;
     };
 
-    useEffect(() => {
+    // useEffect(() => {
+    //     const int = setInterval(() => {
+    //         setValue(value => value + 10);
+    //     }, 60000);
+    //     return () => clearInterval(int);
+    // }, []);
 
-        console.log('id');
+    useEffect(() => {
 
         let iV = id.replace(/\D/g, '')
         let cS = id.replace(/\d/g, '')
@@ -113,6 +119,7 @@ function App() {
             <Visual
                 id={id}
                 type={type}
+                value={value}
             />
         </div>
     );
