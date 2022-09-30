@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, Suspense } from 'react'
 import { Canvas, extend, useLoader, useFrame, useThree } from '@react-three/fiber'
-import { OrbitControls, PresentationControls, Environment, Effects, Loader, useTexture, Html, CameraShake, Float } from '@react-three/drei'
+import { OrbitControls, PresentationControls, Environment, Effects, Loader, useTexture, Html, CameraShake, Float, Lightformer } from '@react-three/drei'
 import * as THREE from 'three'
 import { LUTPass } from 'three/examples/jsm/postprocessing/LUTPass'
 import { LUTCubeLoader } from 'three/examples/jsm/loaders/LUTCubeLoader'
@@ -28,9 +28,19 @@ export default function MainVisual(props) {
         a1
     } = props
 
-    const mouse = useRef([0, 0])
+    const [interacting, setInteracting] = useState(false)
+    const [intensity, setIntensity] = useState(50)
 
+    const mouse = useRef([0, 0])
+    const lightRef1 = useRef()
+    const lightRef2 = useRef()
+    const lightRef3 = useRef()
     extend({ LUTPass })
+
+    useEffect(() => {
+        console.log('yeyey')
+        if (interacting) console.log(lightRef1.current)
+    }, interacting)
 
     return (
         <div
@@ -43,12 +53,14 @@ export default function MainVisual(props) {
                 shadows
                 dpr={[1, 2]}
                 camera={{ position: [0, 0, 5], fov: 45 }}
+                onPointerDown={() => setInteracting(true)}
+                onPointerUp={() => setInteracting(false)}
             >
                 <spotLight
                     intensity={0.8}
                     angle={0.2}
                     penumbra={1}
-                    position={[5, 15, 10]}
+                    position={[5, 12, 10]}
                 />
                 <Suspense
                     fallback={null}
@@ -59,7 +71,8 @@ export default function MainVisual(props) {
                         snap={{ mass: 5, tension: 100 }}
                         rotation={[0, Math.PI / 16, 0]}
                         polar={[-Math.PI / 4, Math.PI / 4]}
-                        azimuth={[-Math.PI / 4, Math.PI / 4]}>
+                        azimuth={[-Math.PI / 4, Math.PI / 4]}
+                    >
                         <Hair>
                             <Blob
                                 type={type}
@@ -67,9 +80,35 @@ export default function MainVisual(props) {
                             />
                         </Hair>
                     </PresentationControls>
-                    <Environment
-                        preset="warehouse"
-                    />
+                    {interacting &&
+                        <Environment>
+                            <Lightformer
+                                ref={lightRef1}
+                                form={'ring'}
+                                intensity={0}
+                                rotation-y={Math.PI / 4}
+                                position={[1.5, -4.5, 1.5]}
+                                scale={[5, 1.5, 1]}
+                            />
+                            <Lightformer
+                                ref={lightRef2}
+                                form={'circle'}
+                                intensity={0}
+                                rotation-y={Math.PI / 4}
+                                position={[2.8, -2, 1.5]}
+                                scale={[0.4, 0.25, 1]}
+                            />
+                            <Lightformer
+                                ref={lightRef3}
+                                form={'circle'}
+                                intensity={0}
+                                rotation-y={Math.PI / 4}
+                                position={[0.5, -1, 1.5]}
+                                scale={[0.2, 0.15, 1]}
+                                color="white"
+                            />
+                        </Environment>
+                    }
                     <Particles
                         count={value}
                         mouse={mouse}
@@ -91,3 +130,26 @@ export default function MainVisual(props) {
     )
 
 }
+
+{/* SAD FACE */ }
+{/* <Lightformer
+form={'circle'}
+intensity={50}
+rotation-y={Math.PI / 4}
+position={[1.5, 1.5, 1.5]}
+scale={[5, 0.1, 1]}
+/>
+<Lightformer
+form={'circle'}
+intensity={50}
+rotation-y={Math.PI / 4}
+position={[2.8, 3.8, 1.5]}
+scale={[0.8, 0.25, 1]}
+/>
+<Lightformer
+form={'circle'}
+intensity={50}
+rotation-y={Math.PI / 4}
+position={[0, 2, 1.5]}
+scale={[0.3, 0.25, 1]}
+/> */}

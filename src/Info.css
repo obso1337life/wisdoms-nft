@@ -56,6 +56,35 @@
     border-bottom: 2px solid rgba(255, 255, 255, 0.7);
 }
 
+#blur {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    animation: focus 10s 5s ease-in-out infinite;
+}
+
+#name {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    position: absolute;
+    z-index: 11;
+    width: calc(85% - 2px);
+    height: 100%;
+    right: 0;
+    /* background-color: lime; */
+}
+
+#name > p {
+    margin-right: 10px;
+    margin-bottom: 5px;
+    font-size: 3rem;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+    color: transparent;
+}
+
 @media (orientation: landscape) {
 
     #info {

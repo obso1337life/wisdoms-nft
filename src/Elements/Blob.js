@@ -105,14 +105,13 @@ export const Blob = forwardRef((props, ref) => {
                     metalness={0}
                 />
             </mesh>
-            <Html
+            {/* <Html
                 transform
                 scale={0.2}
                 position={[0.8, -0.5, 1.5]}
-            // occlude
             >
                 <p className="annotation" style={{textShadow: `0px 0px 5px ${color}`}}>centerpoint #09566854</p>
-            </Html>
+            </Html> */}
         </group>
     )
 })

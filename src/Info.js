@@ -25,8 +25,10 @@ export default function Dash(props) {
                 <div style={{textShadow: `0px 0px 5px rgb(${r1}, ${g1}, ${b1})`}}>#</div>
                 <div style={{textShadow: `0px 0px 5px rgb(${r1}, ${g1}, ${b1})`}}>#</div>
             </div>
-            {/* <p>{id}</p> */}
             <div id="blur"></div>
+            <div id="name">
+                <p style={{textShadow: `0px 0px 5px rgb(${r1}, ${g1}, ${b1})`}}>centerpoint 2979461337</p>
+            </div>
         </div>
     )
 
