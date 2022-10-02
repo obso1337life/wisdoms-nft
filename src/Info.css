@@ -1,3 +1,8 @@
+@font-face {
+    font-family: black-metal;
+    src: url('./assets/fonts/black-metal.ttf');
+}
+
 @keyframes focus {
     0% {
         backdrop-filter: blur(0px);
@@ -26,6 +31,35 @@
     }
 }
 
+@keyframes flash {
+    0% {
+        opacity: 0
+    }
+
+    50% {
+        opacity: 1
+    }
+
+    100% {
+        opacity: 0
+    }
+}
+
+@keyframes slide {
+    0% {
+        right: 0;
+        opacity: 0
+    }
+
+    20% {
+        opacity: 1
+    }
+
+    100% {
+        right: 20%;
+    }
+}
+
 #info {
     position: absolute;
     z-index: 100;
@@ -42,7 +76,7 @@
     height: 100%;
 }
 
-#sidebar > div {
+#sidebar>div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -77,12 +111,18 @@
     /* background-color: lime; */
 }
 
-#name > p {
-    margin-right: 10px;
-    margin-bottom: 5px;
-    font-size: 3rem;
+#name>div {
+    position: absolute;
+    bottom: -40px;
+    /* background-color: blue; */
+}
+
+#name>div>p {
+    font-family: black-metal;
+    font-size: 5rem;
     -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
     color: transparent;
+    opacity: 0;
 }
 
 @media (orientation: landscape) {

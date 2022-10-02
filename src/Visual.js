@@ -8,6 +8,7 @@ import { Blob } from './Elements/Blob'
 import { Hair } from './Elements/Hair'
 import { Clouds } from './Elements/Clouds'
 import Particles from './Elements/Particles'
+import Text from './Elements/Text'
 import Sparks from './Elements/Sparks'
 import './Visual.css';
 
@@ -85,7 +86,7 @@ export default function MainVisual(props) {
                             <Lightformer
                                 ref={lightRef1}
                                 form={'ring'}
-                                intensity={0}
+                                intensity={50}
                                 rotation-y={Math.PI / 4}
                                 position={[1.5, -4.5, 1.5]}
                                 scale={[5, 1.5, 1]}
@@ -93,7 +94,7 @@ export default function MainVisual(props) {
                             <Lightformer
                                 ref={lightRef2}
                                 form={'circle'}
-                                intensity={0}
+                                intensity={50}
                                 rotation-y={Math.PI / 4}
                                 position={[2.8, -2, 1.5]}
                                 scale={[0.4, 0.25, 1]}
@@ -101,7 +102,7 @@ export default function MainVisual(props) {
                             <Lightformer
                                 ref={lightRef3}
                                 form={'circle'}
-                                intensity={0}
+                                intensity={50}
                                 rotation-y={Math.PI / 4}
                                 position={[0.5, -1, 1.5]}
                                 scale={[0.2, 0.15, 1]}
@@ -118,6 +119,9 @@ export default function MainVisual(props) {
                         color={`rgb(${r1}, ${g1}, ${b1})`}
                     />
                     <Effects />
+                    <Text 
+                        text={'top level bossman'}
+                    />
                     {/* <Sparks count={20} mouse={mouse} colors={['#A2CCB6', '#FCEEB5', '#EE786E', '#e0feff', 'lightpink', 'lightblue']} /> */}
                     <CameraShake
                         maxRoll={0.08}
