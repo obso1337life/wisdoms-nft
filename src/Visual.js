@@ -4,6 +4,8 @@ import { OrbitControls, PresentationControls, Environment, Effects, Loader, useT
 import * as THREE from 'three'
 import { LUTPass } from 'three/examples/jsm/postprocessing/LUTPass'
 import { LUTCubeLoader } from 'three/examples/jsm/loaders/LUTCubeLoader'
+import { motion } from "framer-motion-3d"
+import { MotionConfig, AnimatePresence } from "framer-motion"
 import { Blob } from './Elements/Blob'
 import { Hair } from './Elements/Hair'
 import { Clouds } from './Elements/Clouds'
@@ -81,35 +83,44 @@ export default function MainVisual(props) {
                             />
                         </Hair>
                     </PresentationControls>
-                    {interacting &&
-                        <Environment>
-                            <Lightformer
-                                ref={lightRef1}
-                                form={'ring'}
-                                intensity={50}
-                                rotation-y={Math.PI / 4}
-                                position={[1.5, -4.5, 1.5]}
-                                scale={[5, 1.5, 1]}
-                            />
-                            <Lightformer
-                                ref={lightRef2}
-                                form={'circle'}
-                                intensity={50}
-                                rotation-y={Math.PI / 4}
-                                position={[2.8, -2, 1.5]}
-                                scale={[0.4, 0.25, 1]}
-                            />
-                            <Lightformer
-                                ref={lightRef3}
-                                form={'circle'}
-                                intensity={50}
-                                rotation-y={Math.PI / 4}
-                                position={[0.5, -1, 1.5]}
-                                scale={[0.2, 0.15, 1]}
-                                color="white"
-                            />
-                        </Environment>
-                    }
+                    <AnimatePresence>
+                        {interacting &&
+                            <motion.group
+                                key="face"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                            >
+                                <Environment>
+                                    <Lightformer
+                                        ref={lightRef1}
+                                        form={'ring'}
+                                        intensity={50}
+                                        rotation-y={Math.PI / 4}
+                                        position={[1.5, -4.5, 1.5]}
+                                        scale={[5, 1.5, 1]}
+                                    />
+                                    <Lightformer
+                                        ref={lightRef2}
+                                        form={'circle'}
+                                        intensity={50}
+                                        rotation-y={Math.PI / 4}
+                                        position={[2.8, -2, 1.5]}
+                                        scale={[0.4, 0.25, 1]}
+                                    />
+                                    <Lightformer
+                                        ref={lightRef3}
+                                        form={'circle'}
+                                        intensity={50}
+                                        rotation-y={Math.PI / 4}
+                                        position={[0.5, -1, 1.5]}
+                                        scale={[0.2, 0.15, 1]}
+                                        color="white"
+                                    />
+                                </Environment>
+                            </motion.group>
+                        }
+                    </AnimatePresence>
                     <Particles
                         count={value}
                         mouse={mouse}
@@ -119,7 +130,7 @@ export default function MainVisual(props) {
                         color={`rgb(${r1}, ${g1}, ${b1})`}
                     />
                     <Effects />
-                    <Text 
+                    <Text
                         text={'top level bossman'}
                     />
                     {/* <Sparks count={20} mouse={mouse} colors={['#A2CCB6', '#FCEEB5', '#EE786E', '#e0feff', 'lightpink', 'lightblue']} /> */}

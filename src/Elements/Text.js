@@ -5,7 +5,7 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 import blackMetal from '../assets/fonts/black_metal.json'
 import { gsap } from "gsap"
 import { motion } from "framer-motion-3d"
-import { MotionConfig } from "framer-motion"
+import { MotionConfig, AnimatePresence } from "framer-motion"
 import * as THREE from 'three'
 
 const clock = new THREE.Clock()
