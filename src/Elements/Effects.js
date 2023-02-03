@@ -1,26 +1,45 @@
-import * as THREE from 'three'
-import React, { useRef, useMemo, useEffect } from 'react'
-import { extend, useThree, useFrame } from '@react-three/fiber'
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass'
-import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass'
-import { WaterPass } from './post/Waterpass'
+import { EffectComposer, Bloom, DepthOfField, Noise, Vignette, Glitch, ChromaticAberration } from '@react-three/postprocessing';
+import { GlitchMode, BlendFunction } from 'postprocessing';
 
-extend({ EffectComposer, ShaderPass, RenderPass, WaterPass, UnrealBloomPass, FilmPass })
+const Effects = () => {
 
-export default function Effects() {
-    const composer = useRef()
-    const { scene, gl, size, camera } = useThree()
-    const aspect = useMemo(() => new THREE.Vector2(512, 512), [])
-    useEffect(() => void composer.current.setSize(size.width, size.height), [size])
-    useFrame(() => composer.current.render(), 1)
     return (
-        <effectComposer ref={composer} args={[gl]}>
-            <renderPass attachArray="passes" scene={scene} camera={camera} />
-            <waterPass attachArray="passes" factor={15} />
-            <unrealBloomPass attachArray="passes" args={[aspect, 10, 10, 0.1]} />
-        </effectComposer>
+        <EffectComposer>
+            <DepthOfField
+                focusDistance={0}
+                focalLength={0.5}
+                bokehScale={2}
+                height={480}
+            />
+            <Bloom
+                luminanceThreshold={0}
+                luminanceSmoothing={0.7}
+                intensity={2}
+                height={350}
+            />
+            {/* <Noise
+                opacity={0.8}
+            /> */}
+            <ChromaticAberration
+                blendFunction={BlendFunction.NORMAL} // blend mode
+                offset={[0.002, 0.0002]} // color offset
+            />
+            {/* <Vignette
+                eskil={false}
+                offset={0.1}
+                darkness={0.8}
+            /> */}
+            {/* <Glitch
+                delay={[1.5, 3.5]} // min and max glitch delay
+                duration={[0.2, 0.5]} // min and max glitch duration
+                strength={[0.001, 0.005]} // min and max glitch strength
+                mode={GlitchMode.SPORADIC} // glitch mode
+                active // turn on/off the effect (switches between "mode" prop and GlitchMode.DISABLED)
+                ratio={0.95} // Threshold for strong glitches, 0 - no weak glitches, 1 - no strong glitches.
+            /> */}
+        </EffectComposer>
     )
-}
+
+};
+
+export default Effects;

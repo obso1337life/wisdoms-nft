@@ -1,17 +1,12 @@
 import React, { useEffect, useState, useRef, Suspense } from 'react'
 import { Canvas, extend, useLoader, useFrame, useThree } from '@react-three/fiber'
-import { OrbitControls, PresentationControls, Environment, Effects, Loader, useTexture, Html, CameraShake, Float, Lightformer } from '@react-three/drei'
+import { OrbitControls, PresentationControls, CameraShake, Environment } from '@react-three/drei'
 import * as THREE from 'three'
-import { LUTPass } from 'three/examples/jsm/postprocessing/LUTPass'
-import { LUTCubeLoader } from 'three/examples/jsm/loaders/LUTCubeLoader'
-import { motion } from "framer-motion-3d"
-import { MotionConfig, AnimatePresence } from "framer-motion"
 import { Blob } from './Elements/Blob'
-import { Hair } from './Elements/Hair'
 import { Clouds } from './Elements/Clouds'
 import Particles from './Elements/Particles'
+import Effects from './Elements/Effects'
 import Text from './Elements/Text'
-import Sparks from './Elements/Sparks'
 import './Visual.css';
 
 export default function MainVisual(props) {
@@ -20,6 +15,8 @@ export default function MainVisual(props) {
         id,
         type,
         value,
+        name,
+        object,
         perc1,
         perc2,
         r1,
@@ -28,22 +25,36 @@ export default function MainVisual(props) {
         g2,
         b1,
         b2,
-        a1
+        a1,
+        modifiers,
+        baseModifiers
     } = props
 
     const [interacting, setInteracting] = useState(false)
-    const [intensity, setIntensity] = useState(50)
+    const [intensity, setIntensity] = useState(0)
 
     const mouse = useRef([0, 0])
     const lightRef1 = useRef()
     const lightRef2 = useRef()
     const lightRef3 = useRef()
-    extend({ LUTPass })
+
+    const handleInteraction = (direction) => {
+
+        if (direction === 'down') {
+            console.log('down')
+            setInteracting(true)
+            // setIntensity(50)
+        } else {
+            console.log('up')
+            setInteracting(false)
+            // setIntensity(0)
+        }
+
+    };
 
     useEffect(() => {
-        console.log('yeyey')
-        if (interacting) console.log(lightRef1.current)
-    }, interacting)
+        console.log(intensity);
+    }, [intensity]);
 
     return (
         <div
@@ -51,13 +62,13 @@ export default function MainVisual(props) {
             style={{
                 background: `radial-gradient(circle, rgba(${r2}, ${g2}, ${b2}, 0.8) 15%, transparent 64%)`
             }}
+        // onPointerDown={() => handleInteraction('down')}
+        // onPointerUp={() => handleInteraction('up')}
         >
             <Canvas
                 shadows
                 dpr={[1, 2]}
                 camera={{ position: [0, 0, 5], fov: 45 }}
-                onPointerDown={() => setInteracting(true)}
-                onPointerUp={() => setInteracting(false)}
             >
                 <spotLight
                     intensity={0.8}
@@ -65,64 +76,33 @@ export default function MainVisual(props) {
                     penumbra={1}
                     position={[5, 12, 10]}
                 />
+                {/* <ambientLight /> */}
                 <Suspense
                     fallback={null}
                 >
-                    <PresentationControls
-                        global
-                        config={{ mass: 2, tension: 100 }}
-                        snap={{ mass: 5, tension: 100 }}
-                        rotation={[0, Math.PI / 16, 0]}
-                        polar={[-Math.PI / 4, Math.PI / 4]}
-                        azimuth={[-Math.PI / 4, Math.PI / 4]}
-                    >
-                        <Hair>
-                            <Blob
-                                type={type}
-                                color={`rgb(${r1}, ${g1}, ${b1})`}
-                            />
-                        </Hair>
-                    </PresentationControls>
-                    <AnimatePresence>
-                        {interacting &&
-                            <motion.group
-                                key="face"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
+                    {object &&
+                        <group
+                            position={[0, 0, -2]}
+                        >
+                            <PresentationControls
+                                global
+                                config={{ mass: 2, tension: 100 }}
+                                snap={{ mass: 5, tension: 100 }}
+                                rotation={[0, Math.PI / 16, 0]}
+                                polar={[-Math.PI / 4, Math.PI / 4]}
+                                azimuth={[-Math.PI / 4, Math.PI / 4]}
                             >
-                                <Environment>
-                                    <Lightformer
-                                        ref={lightRef1}
-                                        form={'ring'}
-                                        intensity={50}
-                                        rotation-y={Math.PI / 4}
-                                        position={[1.5, -4.5, 1.5]}
-                                        scale={[5, 1.5, 1]}
-                                    />
-                                    <Lightformer
-                                        ref={lightRef2}
-                                        form={'circle'}
-                                        intensity={50}
-                                        rotation-y={Math.PI / 4}
-                                        position={[2.8, -2, 1.5]}
-                                        scale={[0.4, 0.25, 1]}
-                                    />
-                                    <Lightformer
-                                        ref={lightRef3}
-                                        form={'circle'}
-                                        intensity={50}
-                                        rotation-y={Math.PI / 4}
-                                        position={[0.5, -1, 1.5]}
-                                        scale={[0.2, 0.15, 1]}
-                                        color="white"
-                                    />
-                                </Environment>
-                            </motion.group>
-                        }
-                    </AnimatePresence>
+                                <Blob
+                                    key={object && type}
+                                    object={object}
+                                    type={type}
+                                    color={`rgb(${r1}, ${g1}, ${b1})`}
+                                />
+                            </PresentationControls>
+                        </group>
+                    }
                     <Particles
-                        count={value}
+                        count={value * 10}
                         mouse={mouse}
                         type={type}
                     />
@@ -131,14 +111,14 @@ export default function MainVisual(props) {
                     />
                     <Effects />
                     <Text
-                        text={'top level bossman'}
+                        name={name}
                     />
-                    {/* <Sparks count={20} mouse={mouse} colors={['#A2CCB6', '#FCEEB5', '#EE786E', '#e0feff', 'lightpink', 'lightblue']} /> */}
                     <CameraShake
                         maxRoll={0.08}
                         maxPitch={0.08}
                         maxYaw={0.08}
                     />
+                    <Environment files="/hdr/Abstract1.hdr" blur={0.5} />
                 </Suspense>
             </Canvas>
         </div>

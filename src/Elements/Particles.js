@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import React, { useRef, useMemo } from 'react'
 import { useFrame, useThree, useLoader } from '@react-three/fiber'
-import { ComputedAttribute, useTexture, Html, Sampler } from '@react-three/drei'
+import { useTexture, MeshTransmissionMaterial, Sampler } from '@react-three/drei'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
 // import './styles.css'
 
@@ -19,7 +19,7 @@ export default function Particles(props) {
     let dmUrl = process.env.PUBLIC_URL + `/textures/blob/${type}/displacementMap.png`
     let nmUrl = process.env.PUBLIC_URL + `/textures/blob/${type}/NormalMap.png`
     const [
-        displacementMap, 
+        displacementMap,
         normalMap
     ] = useLoader(TextureLoader, [
         dmUrl,
@@ -46,7 +46,7 @@ export default function Particles(props) {
     // The innards of this hook will run every frame
     useFrame((state) => {
         // Makes the light follow the mouse
-        light.current.position.set(mouse.current[0] / aspect, -mouse.current[1] / aspect, 0)
+        // light.current.position.set(mouse.current[0] / aspect, -mouse.current[1] / aspect, 0)
         // Run through the randomized data to calculate some movement
         particles.forEach((particle, i) => {
             let { t, factor, speed, xFactor, yFactor, zFactor } = particle
@@ -70,23 +70,37 @@ export default function Particles(props) {
             mesh.current.setMatrixAt(i, dummy.matrix)
         })
         mesh.current.instanceMatrix.needsUpdate = true
-    })
+    });
+
     return (
         <>
-            <pointLight ref={light} distance={40} intensity={8} color="red" />
+            <pointLight
+                ref={light}
+                position={[0, 0, 20]}
+                distance={40}
+                intensity={5}
+                color="red"
+            />
             <instancedMesh ref={mesh} args={[null, null, count]}>
                 {/* <dodecahedronGeometry args={[0.1, 0]} /> */}
-                <sphereGeometry args={[0.1, 32]} />
-                <meshPhysicalMaterial
+                <sphereGeometry args={[0.5, 64, 64]} />
+                <MeshTransmissionMaterial
+                    resolution={1024}
+                    distortion={0.55}
+                    color="white"
+                    thickness={1}
+                    anisotropy={1}
+                />
+                {/* <meshPhysicalMaterial
                     normalMap={normalMap}
-                    displacementMap={displacementMap}
+                    // displacementMap={displacementMap}
                     envMapIntensity={0.4}
                     map={texture}
                     clearcoat={0.8}
                     clearcoatRoughness={0}
                     roughness={1}
                     metalness={0}
-                />
+                /> */}
             </instancedMesh>
         </>
     )
