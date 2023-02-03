@@ -21,11 +21,11 @@ export const Blob = forwardRef((props, ref) => {
 
     const objects = {
         cone: {
-            obj: useLoader(OBJLoader, '/models/cone.obj'),
+            obj: useLoader(OBJLoader, './models/cone.obj'),
             type: 'custom'
         },
         ring: {
-            obj: useLoader(OBJLoader, '/models/ring.obj'),
+            obj: useLoader(OBJLoader, './models/ring.obj'),
             type: 'custom'
         },
         icosahedron: {
@@ -54,8 +54,8 @@ export const Blob = forwardRef((props, ref) => {
     const texture = useTexture(process.env.PUBLIC_URL + `/textures/blob/${type}/${type}.jpg`);
 
     // displacement and normal maps
-    let dmUrl = process.env.PUBLIC_URL + `/textures/blob/${type}/displacementMap.png`;
-    let nmUrl = process.env.PUBLIC_URL + `/textures/blob/${type}/NormalMap.png`;
+    let dmUrl = process.env.PUBLIC_URL + `./textures/blob/${type}/displacementMap.png`;
+    let nmUrl = process.env.PUBLIC_URL + `./textures/blob/${type}/NormalMap.png`;
     const [
         displacementMap,
         normalMap
