@@ -21,11 +21,13 @@ export const Blob = forwardRef((props, ref) => {
 
     const objects = {
         cone: {
-            obj: useLoader(OBJLoader, 'https://wisdoms-nft.s3.amazonaws.com/models/cone.obj'),
+            obj: useLoader(OBJLoader, './models/cone.obj'),
+            // obj: useLoader(OBJLoader, 'https://wisdoms-nft.s3.amazonaws.com/models/cone.obj'),
             type: 'custom'
         },
         ring: {
-            obj: useLoader(OBJLoader, 'https://wisdoms-nft.s3.amazonaws.com/models/ring.obj'),
+            obj: useLoader(OBJLoader, './models/ring.obj'),
+            // obj: useLoader(OBJLoader, 'https://wisdoms-nft.s3.amazonaws.com/models/ring.obj'),
             type: 'custom'
         },
         icosahedron: {
@@ -51,12 +53,14 @@ export const Blob = forwardRef((props, ref) => {
     };
 
     // texture
-    // const texture = useTexture(process.env.PUBLIC_URL + `./textures/blob/${type}/${type}.jpg`);
-    const texture = useTexture(`https://wisdoms-nft.s3.amazonaws.com/textures/blob/${type}/${type}.jpg`);
+    const texture = useTexture(process.env.PUBLIC_URL + `./textures/blob/${type}/${type}.jpg`);
+    // const texture = useTexture(`https://wisdoms-nft.s3.amazonaws.com/textures/blob/${type}/${type}.jpg`);
 
     // displacement and normal maps
-    let dmUrl = `https://wisdoms-nft.s3.amazonaws.com/textures/blob/${type}/displacementMap.png`;
-    let nmUrl = `https://wisdoms-nft.s3.amazonaws.com/textures/blob/${type}/NormalMap.png`;
+    // let dmUrl = `https://wisdoms-nft.s3.amazonaws.com/textures/blob/${type}/DisplacementMap.png`;
+    // let nmUrl = `https://wisdoms-nft.s3.amazonaws.com/textures/blob/${type}/NormalMap.png`;
+    let dmUrl = process.env.PUBLIC_URL + `./textures/blob/${type}/DisplacementMap.png`;
+    let nmUrl = process.env.PUBLIC_URL + `./textures/blob/${type}/NormalMap.png`;
     const [
         displacementMap,
         normalMap
@@ -133,38 +137,6 @@ export const Blob = forwardRef((props, ref) => {
                 />
             }
         </group>
-    )
+    );
 
-    // return (
-    //     <group
-    //         ref={blobRef}
-    //     >
-    //         <mesh>
-    //             {/* <sphereGeometry ref={geom} args={[2.5, 32]} /> */}
-    //             <icosahedronBufferGeometry
-    //                 ref={geom}
-    //                 args={[1.9, 128]}
-    //             >
-    //                 <ComputedAttribute name="density" compute={computeFlowerDensity} usage={THREE.StaticReadUsage} />
-    //             </icosahedronBufferGeometry>
-    //             <meshPhysicalMaterial
-    //                 normalMap={normalMap}
-    //                 displacementMap={displacementMap}
-    //                 envMapIntensity={0.4}
-    //                 map={texture}
-    //                 clearcoat={0.8}
-    //                 clearcoatRoughness={0}
-    //                 roughness={1}
-    //                 metalness={0}
-    //             />
-    //         </mesh>
-    //         {/* <Html
-    //             transform
-    //             scale={0.2}
-    //             position={[0.8, -0.5, 1.5]}
-    //         >
-    //             <p className="annotation" style={{textShadow: `0px 0px 5px ${color}`}}>centerpoint #09566854</p>
-    //         </Html> */}
-    //     </group>
-    // )
 })

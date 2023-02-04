@@ -120,7 +120,7 @@ export default function MainVisual(props) {
                         maxPitch={0.08}
                         maxYaw={0.08}
                     />
-                    <Environment files="https://wisdoms-nft.s3.amazonaws.com/hdr/Abstract1.hdr" blur={0.5} />
+                    <Environment files="./hdr/Abstract1.hdr" blur={0.5} />
                 </Suspense>
             </Canvas>
         </div>
