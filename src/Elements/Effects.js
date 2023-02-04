@@ -14,7 +14,7 @@ const Effects = () => {
             <Bloom
                 luminanceThreshold={0}
                 luminanceSmoothing={0.7}
-                intensity={2}
+                intensity={2.2}
                 height={350}
             />
             {/* <Noise

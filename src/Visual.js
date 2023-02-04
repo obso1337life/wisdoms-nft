@@ -105,6 +105,8 @@ export default function MainVisual(props) {
                         count={value * 10}
                         mouse={mouse}
                         type={type}
+                        color1={`rgb(${r1}, ${g1}, ${b1})`}
+                        color2={`rgb(${r2}, ${g2}, ${b2})`}
                     />
                     <Clouds
                         color={`rgb(${r1}, ${g1}, ${b1})`}

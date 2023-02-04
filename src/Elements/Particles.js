@@ -10,7 +10,9 @@ export default function Particles(props) {
     const {
         type,
         count,
-        mouse
+        mouse,
+        color1,
+        color2
     } = props
 
     const mesh = useRef()
@@ -78,29 +80,18 @@ export default function Particles(props) {
                 ref={light}
                 position={[0, 0, 20]}
                 distance={40}
-                intensity={5}
-                color="red"
+                intensity={3}
+                color={color1}
             />
             <instancedMesh ref={mesh} args={[null, null, count]}>
-                {/* <dodecahedronGeometry args={[0.1, 0]} /> */}
                 <sphereGeometry args={[0.5, 64, 64]} />
                 <MeshTransmissionMaterial
                     resolution={1024}
-                    distortion={0.55}
+                    distortion={0.35}
                     color="white"
                     thickness={1}
                     anisotropy={1}
                 />
-                {/* <meshPhysicalMaterial
-                    normalMap={normalMap}
-                    // displacementMap={displacementMap}
-                    envMapIntensity={0.4}
-                    map={texture}
-                    clearcoat={0.8}
-                    clearcoatRoughness={0}
-                    roughness={1}
-                    metalness={0}
-                /> */}
             </instancedMesh>
         </>
     )
