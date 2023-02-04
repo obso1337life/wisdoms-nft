@@ -18,7 +18,7 @@ export default function Particles(props) {
     const mesh = useRef()
     const light = useRef()
     const texture = useTexture(process.env.PUBLIC_URL + `/textures/blob/${type}/${type}.jpg`)
-    let dmUrl = process.env.PUBLIC_URL + `/textures/blob/${type}/displacementMap.png`
+    let dmUrl = process.env.PUBLIC_URL + `/textures/blob/${type}/DisplacementMap.png`
     let nmUrl = process.env.PUBLIC_URL + `/textures/blob/${type}/NormalMap.png`
     const [
         displacementMap,
