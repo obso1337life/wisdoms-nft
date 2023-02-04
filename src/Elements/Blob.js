@@ -51,7 +51,7 @@ export const Blob = forwardRef((props, ref) => {
     };
 
     // texture
-    const texture = useTexture(process.env.PUBLIC_URL + `/textures/blob/${type}/${type}.jpg`);
+    const texture = useTexture(process.env.PUBLIC_URL + `./textures/blob/${type}/${type}.jpg`);
 
     // displacement and normal maps
     let dmUrl = process.env.PUBLIC_URL + `./textures/blob/${type}/displacementMap.png`;
