@@ -61,21 +61,6 @@ function App() {
 
     const [baseModifiers, setBaseModifiers] = useState({ ...baseWisdomModifiers });
 
-    // const makeRGBVal = (val1, val2) => {
-    //     let big = val1 >= val2 ? val1 : val2;
-    //     let small = big === val1 ? val2 : val1;
-    //     let perc = (small / big);
-    //     let val = 255 * perc;
-    //     return Math.floor(val);
-    // };
-
-    // useEffect(() => {
-    //     const int = setInterval(() => {
-    //         setValue(value => value + 10);
-    //     }, 60000);
-    //     return () => clearInterval(int);
-    // }, []);
-
     useEffect(() => {
 
         const generatedValues = extrapolateAndReturnValuesFromString(id);
