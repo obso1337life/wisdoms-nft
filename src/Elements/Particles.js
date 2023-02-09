@@ -1,9 +1,7 @@
 import * as THREE from 'three'
 import React, { useRef, useMemo } from 'react'
 import { useFrame, useThree, useLoader } from '@react-three/fiber'
-import { useTexture, MeshTransmissionMaterial, Sampler } from '@react-three/drei'
-import { TextureLoader } from 'three/src/loaders/TextureLoader'
-// import './styles.css'
+import { MeshTransmissionMaterial } from '@react-three/drei'
 
 export default function Particles(props) {
 
@@ -17,16 +15,7 @@ export default function Particles(props) {
 
     const mesh = useRef()
     const light = useRef()
-    const texture = useTexture(process.env.PUBLIC_URL + `/textures/blob/${type}/${type}.jpg`)
-    let dmUrl = process.env.PUBLIC_URL + `/textures/blob/${type}/DisplacementMap.png`
-    let nmUrl = process.env.PUBLIC_URL + `/textures/blob/${type}/NormalMap.png`
-    const [
-        displacementMap,
-        normalMap
-    ] = useLoader(TextureLoader, [
-        dmUrl,
-        nmUrl
-    ])
+
     const { size, viewport } = useThree()
     const aspect = size.width / viewport.width
 
