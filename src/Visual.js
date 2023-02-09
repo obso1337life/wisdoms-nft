@@ -9,7 +9,7 @@ import Effects from './Elements/Effects'
 import Text from './Elements/Text'
 import './Visual.css';
 
-import HDR from "./assets/hdr/abstract1.hdr";
+import HDR from "./assets/hdr/cunt.hdr";
 
 export default function MainVisual(props) {
 
