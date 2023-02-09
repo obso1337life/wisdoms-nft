@@ -9,6 +9,8 @@ import Effects from './Elements/Effects'
 import Text from './Elements/Text'
 import './Visual.css';
 
+import HDR from "./assets/hdr/Abstract1.hdr"
+
 export default function MainVisual(props) {
 
     const {
@@ -31,32 +33,12 @@ export default function MainVisual(props) {
     } = props
 
     const [showBlob, setShowBlob] = useState(true);
-    const [interacting, setInteracting] = useState(false)
-    const [intensity, setIntensity] = useState(0)
+    const [interacting, setInteracting] = useState(false);
+    const [intensity, setIntensity] = useState(0);
 
-    const mouse = useRef([0, 0])
-    const lightRef1 = useRef()
-    const lightRef2 = useRef()
-    const lightRef3 = useRef()
-
-    console.log(process.env.PUBLIC_URL + "/hdr/Abstract1.hdr");
-
-    const handleInteraction = (direction) => {
-
-        if (direction === 'down') {
-            console.log('down')
-            setInteracting(true)
-            // setIntensity(50)
-        } else {
-            console.log('up')
-            setInteracting(false)
-            // setIntensity(0)
-        }
-
-    };
+    const mouse = useRef([0, 0]);
 
     useEffect(() => {
-        console.log(type);
         setShowBlob(false);
     }, [type]);
 
@@ -129,33 +111,10 @@ export default function MainVisual(props) {
                         maxPitch={0.08}
                         maxYaw={0.08}
                     />
-                    <Environment files="./hdr/Abstract1.hdr" blur={0.5} />
+                    <Environment files={HDR} blur={0.5} />
                 </Suspense>
             </Canvas>
         </div>
     )
 
-}
-
-{/* SAD FACE */ }
-{/* <Lightformer
-form={'circle'}
-intensity={50}
-rotation-y={Math.PI / 4}
-position={[1.5, 1.5, 1.5]}
-scale={[5, 0.1, 1]}
-/>
-<Lightformer
-form={'circle'}
-intensity={50}
-rotation-y={Math.PI / 4}
-position={[2.8, 3.8, 1.5]}
-scale={[0.8, 0.25, 1]}
-/>
-<Lightformer
-form={'circle'}
-intensity={50}
-rotation-y={Math.PI / 4}
-position={[0, 2, 1.5]}
-scale={[0.3, 0.25, 1]}
-/> */}
+};
