@@ -112,7 +112,7 @@ export default function MainVisual(props) {
                         maxPitch={0.08}
                         maxYaw={0.08}
                     />
-                    <Environment files={HDR} blur={0.5} />
+                    <Environment files="./hdr/abstract.hdr" blur={0.5} />
                 </Suspense>
             </Canvas>
         </div>
