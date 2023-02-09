@@ -30,6 +30,7 @@ export default function MainVisual(props) {
         baseModifiers
     } = props
 
+    const [showBlob, setShowBlob] = useState(true);
     const [interacting, setInteracting] = useState(false)
     const [intensity, setIntensity] = useState(0)
 
@@ -53,8 +54,13 @@ export default function MainVisual(props) {
     };
 
     useEffect(() => {
-        console.log(intensity);
-    }, [intensity]);
+        console.log(type);
+        setShowBlob(false);
+    }, [type]);
+
+    useEffect(() => {
+        if (!showBlob) setTimeout(() => setShowBlob(true), 1000);
+    }, [showBlob]);
 
     return (
         <div
@@ -80,7 +86,7 @@ export default function MainVisual(props) {
                 <Suspense
                     fallback={null}
                 >
-                    {object &&
+                    {object && showBlob &&
                         <group
                             position={[0, 0, -2]}
                         >
@@ -97,6 +103,7 @@ export default function MainVisual(props) {
                                     object={object}
                                     type={type}
                                     color={`rgb(${r1}, ${g1}, ${b1})`}
+                                    showBlob={showBlob}
                                 />
                             </PresentationControls>
                         </group>
@@ -120,7 +127,7 @@ export default function MainVisual(props) {
                         maxPitch={0.08}
                         maxYaw={0.08}
                     />
-                    {/* <Environment files="./hdr/Abstract1.hdr" blur={0.5} /> */}
+                    <Environment files="./hdr/Abstract1.hdr" blur={0.5} />
                     {/* <Environment files="./hdr/Abstract1.hdr" blur={0.5} /> */}
                 </Suspense>
             </Canvas>

@@ -13,7 +13,8 @@ export const Blob = forwardRef((props, ref) => {
     const {
         object,
         type,
-        color
+        color,
+        showBlob
     } = props;
 
     const blobRef = useRef();
@@ -83,6 +84,7 @@ export const Blob = forwardRef((props, ref) => {
 
     
     useEffect(() => {
+        if (!showBlob) return;
         console.log('mount');
         const geom = objects[object].type === 'custom' ? objects[object].obj.children[0].geometry : objects[object].obj;
         if (objects[object].type === 'custom') objects[object].obj.children[0].material = material;
@@ -108,7 +110,7 @@ export const Blob = forwardRef((props, ref) => {
             console.log('unmount');
         };
 
-    }, [object]);
+    }, [showBlob]);
 
     // USE THIS FOR SCALING WITH VALUE
     useFrame(({ clock }) => {
