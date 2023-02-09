@@ -40,7 +40,6 @@ export default function MainVisual(props) {
     const lightRef3 = useRef()
 
     console.log(process.env.PUBLIC_URL + "/hdr/Abstract1.hdr");
-    console.log('process.env.PUBLIC_URL', process.env.PUBLIC_URL);
 
     const handleInteraction = (direction) => {
 
@@ -130,7 +129,7 @@ export default function MainVisual(props) {
                         maxPitch={0.08}
                         maxYaw={0.08}
                     />
-                    <Environment files={process.env.PUBLIC_URL + "/hdr/Abstract1.hdr"} blur={0.5} />
+                    <Environment files="./hdr/Abstract1.hdr" blur={0.5} />
                 </Suspense>
             </Canvas>
         </div>
