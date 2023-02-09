@@ -9,7 +9,7 @@ import Effects from './Elements/Effects'
 import Text from './Elements/Text'
 import './Visual.css';
 
-import HDR from "./assets/hdr/poo.hdr";
+// import HDR from "./assets/hdr/poo.hdr";
 
 export default function MainVisual(props) {
 
@@ -111,7 +111,7 @@ export default function MainVisual(props) {
                         maxPitch={0.08}
                         maxYaw={0.08}
                     />
-                    <Environment files={HDR} blur={0.5} />
+                    <Environment files="./assets/hdr/poo.hdr" blur={0.5} />
                 </Suspense>
             </Canvas>
         </div>
