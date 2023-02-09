@@ -39,6 +39,9 @@ export default function MainVisual(props) {
     const lightRef2 = useRef()
     const lightRef3 = useRef()
 
+    console.log(process.env.PUBLIC_URL + "/hdr/Abstract1.hdr");
+    console.log('process.env.PUBLIC_URL', process.env.PUBLIC_URL);
+
     const handleInteraction = (direction) => {
 
         if (direction === 'down') {
