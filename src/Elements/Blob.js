@@ -54,14 +54,14 @@ export const Blob = forwardRef((props, ref) => {
     };
 
     // texture
-    const texture = useTexture(process.env.PUBLIC_URL + `./textures/blob/${type}/${type}.jpg`);
+    const texture = useTexture(process.env.PUBLIC_URL + `/textures/blob/${type}/${type}.jpg`);
     // const texture = useTexture(`https://wisdoms-nft.s3.amazonaws.com/textures/blob/${type}/${type}.jpg`);
 
     // displacement and normal maps
     // let dmUrl = `https://wisdoms-nft.s3.amazonaws.com/textures/blob/${type}/DisplacementMap.png`;
     // let nmUrl = `https://wisdoms-nft.s3.amazonaws.com/textures/blob/${type}/NormalMap.png`;
-    let dmUrl = process.env.PUBLIC_URL + `./textures/blob/${type}/DisplacementMap.png`;
-    let nmUrl = process.env.PUBLIC_URL + `./textures/blob/${type}/NormalMap.png`;
+    let dmUrl = process.env.PUBLIC_URL + `/textures/blob/${type}/DisplacementMap.png`;
+    let nmUrl = process.env.PUBLIC_URL + `/textures/blob/${type}/NormalMap.png`;
     const [
         displacementMap,
         normalMap
