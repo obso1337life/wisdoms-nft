@@ -19,8 +19,7 @@ const dash_test_id = [
 ];
 
 const dash_test_objects = [
-    'ring',
-    'cone',
+    'torusKnot',
     'icosahedron'
 ];
 
@@ -59,7 +58,8 @@ export default function Dash(props) {
         setValue,
         baseModifiers,
         setBaseModifiers,
-        baseWisdomModifiers
+        baseWisdomModifiers,
+        remount
     } = props;
 
     const txtAreaRefName = useRef();
@@ -83,6 +83,8 @@ export default function Dash(props) {
         if (txtAreaRefName && txtAreaRefName.current && txtAreaRefName.current.value.length) {
             setName(txtAreaRefName.current.value);
         };
+
+        // remount();
     };
 
     // handle changing test string
@@ -104,21 +106,29 @@ export default function Dash(props) {
             // update text area value
             if (txtAreaRefString && txtAreaRefString.current) txtAreaRefString.current.value = valToSet;
         };
+
+        // remount();
     };
 
     // handle changing test object
     const handleDashTestObject = tst_obj => {
         setObject(tst_obj);
+
+        // remount();
     };
 
     // handle changing test texture
     const handleDashTestTexture = tst_txtr => {
         setType(tst_txtr);
+
+        // remount();
     };
 
     // handle changing test value
     const handleDashTestValue = e => {
         setValue(e.target.value);
+
+        // remount();
     };
 
     const handleDashBaseModifierChange = e => {
@@ -127,11 +137,15 @@ export default function Dash(props) {
         baseModifiersClone[e.target.name] = e.target.value;
        
         setBaseModifiers(baseModifiersClone);
+
+        // remount();
     };
 
     const handleDashValueReset = () => {
         setValue(50);
         if (value && inptRngeRefValue && inptRngeRefValue.current) inptRngeRefValue.current.value = 50;
+
+        // remount();
     };
 
     const handleDashBaseModifierReset = () => {
@@ -144,6 +158,8 @@ export default function Dash(props) {
         if (inptRngeRefFI && inptRngeRefFI.current) inptRngeRefFI.current.value = baseWisdomModifiers.float_intensity;
         if (inptRngeRefFRS && inptRngeRefFRS.current) inptRngeRefFRS.current.value = baseWisdomModifiers.float_range_start;
         if (inptRngeRefFRE && inptRngeRefFRE.current) inptRngeRefFRE.current.value = baseWisdomModifiers.ffloat_range_end;
+
+        // remount();
     };
 
     // (╯°益°)╯彡┻━┻ -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

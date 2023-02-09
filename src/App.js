@@ -24,6 +24,7 @@ const baseWisdomModifiers = {
 };
 
 function App() {
+    const [remountIncrementor, setRemountIncrementor] = useState(0);
 
     const [id, setId] = useState('obso1337 rul3s!');
     // texture
@@ -33,7 +34,7 @@ function App() {
     // name
     const [name, setName] = useState('Chev Chelios');
     // base object
-    const [object, setObject] = useState('ring');
+    const [object, setObject] = useState('torusKnot');
 
     // const [intVal, setIntVal] = useState(null)
     // const [charString, setCharString] = useState(null)
@@ -73,7 +74,7 @@ function App() {
 
         setPerc1(valuesToSet.perc1);
         setPerc2(valuesToSet.perc2);
-        
+
         setR1(valuesToSet.r1);
         setG1(valuesToSet.g1);
         setB1(valuesToSet.b1);
@@ -147,6 +148,7 @@ function App() {
                 baseModifiers={baseModifiers}
                 setBaseModifiers={setBaseModifiers}
                 baseWisdomModifiers={{ ...baseWisdomModifiers }}
+                remount={() => setRemountIncrementor(remountIncrementor + 1)}
             />
             <Info
                 id={id}
@@ -160,25 +162,35 @@ function App() {
                 b2={b2}
                 a1={a1}
             />
-            <Visual
-                id={id}
-                type={type}
-                value={value}
-                name={name}
-                object={object}
-                perc1={perc1}
-                perc2={perc2}
-                r1={r1}
-                r2={r2}
-                g1={g1}
-                g2={g2}
-                b1={b1}
-                b2={b2}
-                a1={a1}
-                // TODO: need to apply these values
-                modifiers={modifiers}
-                baseModifiers={baseModifiers}
-            />
+            <div
+                id="visual"
+                style={{
+                    background: `radial-gradient(circle, rgba(${r2}, ${g2}, ${b2}, 0.8) 15%, transparent 64%)`
+                }}
+            // onPointerDown={() => handleInteraction('down')}
+            // onPointerUp={() => handleInteraction('up')}
+            >
+                <Visual
+                    id={id}
+                    type={type}
+                    value={value}
+                    name={name}
+                    object={object}
+                    perc1={perc1}
+                    perc2={perc2}
+                    r1={r1}
+                    r2={r2}
+                    g1={g1}
+                    g2={g2}
+                    b1={b1}
+                    b2={b2}
+                    a1={a1}
+                    key={`remount_me_${remountIncrementor}`}
+                    // TODO: need to apply these values
+                    modifiers={modifiers}
+                    baseModifiers={baseModifiers}
+                />
+            </div>
         </div>
     );
 }
