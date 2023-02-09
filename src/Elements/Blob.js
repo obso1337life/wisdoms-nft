@@ -62,6 +62,7 @@ export const Blob = forwardRef((props, ref) => {
     // let nmUrl = `https://wisdoms-nft.s3.amazonaws.com/textures/blob/${type}/NormalMap.png`;
     let dmUrl = `./textures/blob/${type}/DisplacementMap.png`;
     let nmUrl = `./textures/blob/${type}/NormalMap.png`;
+
     const [
         displacementMap,
         normalMap
