@@ -25,7 +25,6 @@ const defaults = {
     }
 };
 
-
 export default function MainVisual(props) {
     const {
         id,
@@ -52,7 +51,7 @@ export default function MainVisual(props) {
 
         const objects = {
             icosahedron: new THREE.IcosahedronGeometry(1.9, 128),
-            torusKnot:  new THREE.TorusKnotGeometry( 5, 0.05, 600, 66, 2, 2 )
+            torusKnot:  new THREE.TorusKnotGeometry( 5, 0.05, 600, 66, 5, 6 )
         };
     
         // texture
@@ -74,12 +73,12 @@ export default function MainVisual(props) {
         let blobMaterial = new THREE.MeshPhysicalMaterial({
             normalMap: normalMap,
             displacementMap: displacementMap,
-            envMapIntensity: 4,
+            envMapIntensity: 0.4,
             map: texture,
-            clearcoat: 40,
+            clearcoat: 2,
             clearcoatRoughness: 0,
             roughness: 0,
-            metalness: 0,
+            metalness: 0.2,
         });
 
         return (

@@ -34,7 +34,7 @@ function App() {
     // name
     const [name, setName] = useState('Chev Chelios');
     // base object
-    const [object, setObject] = useState('torusKnot');
+    const [object, setObject] = useState('icosahedron');
 
     // const [intVal, setIntVal] = useState(null)
     // const [charString, setCharString] = useState(null)
