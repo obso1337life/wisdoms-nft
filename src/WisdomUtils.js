@@ -69,8 +69,6 @@ export function generateAndReturnWisdomVariables(stringToUse, valuesToUse) {
             lo
         } = valuesToUse;
 
-        console.log('valuesToUse', valuesToUse);
-
         // determine percentile values
         let perc1 = parseInt(s.slice(0, 2)) / 2;
         let perc2 = parseInt(l.slice(0, 2)) / 2;
@@ -89,13 +87,17 @@ export function generateAndReturnWisdomVariables(stringToUse, valuesToUse) {
         let b2 = generateAndReturnRGBVals(parseInt(l.slice(0, 1)), parseInt(s.slice(0, 1)));
 
         // generate the modifiers for the base values
-        let sMod = convertSineToModSway(parseInt(iV) - 100, 0.2);
-        let ssMod = convertSineToModSway(g1, 0.3);
-        let soMod = convertSineToModSway(b1 * 2, 0.2);
-        let fiMod = convertSineToModSway(sI + 4.20, 0.4);
+        let sMod = convertSineToModSway(parseInt(iV) - 100, 0.4);
+        let ssMod = convertSineToModSway(g1, 0.6);
+        let soMod = convertSineToModSway(b1 * 2, 0.4);
+        let fiMod = convertSineToModSway(sI + 4.20, 0.9);
         let frMod = convertSineToModSway(parseInt(iV) / 0.69, 0.1);
-        let friMod = convertSineToModSway((lI + lo) * 1337, 0.2);
+        let friMod = convertSineToModSway((lI + lo) * 1337, 0.9);
         let fsMod = convertSineToModSway(r1 + b1, 0.8);
+        let psMod = convertSineToModSway((g1 * 1337) + (b1 * 3), 0.6);
+        let ryMod = 0.25 + (0.1 * Math.sin(perc1 + lI / 2));
+
+        let nMod = (Math.sin((g2 * 4 + b1) - (b2 * 1.3)) * 0.05) + 0.05;
 
         // TODO: return backup values if generated values are unusable
         // or if using min max mod && greater / less than use min max vals
@@ -119,7 +121,10 @@ export function generateAndReturnWisdomVariables(stringToUse, valuesToUse) {
                 fiMod,
                 frMod,
                 friMod,
-                fsMod
+                fsMod,
+                psMod,
+                ryMod,
+                nMod
             }
         };  
     } catch (error) {

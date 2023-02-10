@@ -5,7 +5,6 @@ export default function Dash(props) {
 
     const {
         id,
-        type,
         perc1,
         r1,
         r2,

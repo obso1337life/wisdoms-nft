@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef, Suspense } from 'react'
 import { Canvas, extend, useLoader, useFrame, useThree } from '@react-three/fiber'
-import { OrbitControls, PresentationControls, CameraShake, Environment, useTexture } from '@react-three/drei';
-import { TextureLoader } from 'three/src/loaders/TextureLoader'
+import { OrbitControls, PresentationControls, CameraShake, Environment, Float } from '@react-three/drei';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 import * as THREE from 'three'
 import { Blob } from './Elements/Blob'
@@ -25,15 +24,33 @@ const defaults = {
     }
 };
 
+const textures = [
+    '01',
+    '02',
+    '02a',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15'
+];
+
 export default function MainVisual(props) {
     const {
         id,
-        type,
         value,
         name,
-        object,
         perc1,
         perc2,
+        perc3,
         r1,
         r2,
         g1,
@@ -45,54 +62,8 @@ export default function MainVisual(props) {
         baseModifiers
     } = props;
 
-    const mouse = useRef([0, 0]);
-
-    const Object = () => {
-
-        const objects = {
-            icosahedron: new THREE.IcosahedronGeometry(1.9, 128),
-            torusKnot:  new THREE.TorusKnotGeometry( 5, 0.05, 600, 66, 5, 6 )
-        };
-    
-        // texture
-        const texture = useTexture(`./textures/blob/${type}/${type}.jpg`);
-    
-        // displacement and normal maps
-        let dmUrl = `./textures/blob/${type}/DisplacementMap.png`;
-        let nmUrl = `./textures/blob/${type}/NormalMap.png`;
-    
-        const [
-            displacementMap,
-            normalMap
-        ] = useLoader(TextureLoader, [
-            dmUrl,
-            nmUrl
-        ]);
-    
-        // material
-        let blobMaterial = new THREE.MeshPhysicalMaterial({
-            normalMap: normalMap,
-            displacementMap: displacementMap,
-            envMapIntensity: 0.4,
-            map: texture,
-            clearcoat: 2,
-            clearcoatRoughness: 0,
-            roughness: 0,
-            metalness: 0.2,
-        });
-
-        return (
-            <Blob
-                key={object && type}
-                material={blobMaterial}
-                object={object && !!objects[object] ? objects[object] : null}
-                defaultX={object && !!defaults[object] ? defaults[object] : null}
-                type={type}
-                color={`rgb(${r1}, ${g1}, ${b1})`}
-            />
-        );
-
-    };
+    let tex = textures[Math.floor(textures.length * (perc3 / 100))];
+    if (!modifiers) return null;
 
     return (
         <Canvas
@@ -109,7 +80,12 @@ export default function MainVisual(props) {
             <Suspense
                 fallback={null}
             >
-                {object &&
+                <Float
+                    speed={baseModifiers.float_speed * (modifiers ? modifiers.fsMod : 1)}
+                    rotationIntensity={baseModifiers.float_rotation_intensity * (modifiers ? modifiers.friMod : 1)}
+                    floatIntensity={baseModifiers.float_intensity * (modifiers ? modifiers.fiMod : 1)}
+                    floatingRange={[baseModifiers.float_range_start * (modifiers ? modifiers.frMod : 1), baseModifiers.float_range_end * (modifiers ? modifiers.frMod : 1)]}
+                >
                     <group
                         position={[0, 0, -2]}
                     >
@@ -121,16 +97,20 @@ export default function MainVisual(props) {
                             polar={[-Math.PI / 4, Math.PI / 4]}
                             azimuth={[-Math.PI / 4, Math.PI / 4]}
                         >
-                            <Object />
+                            <Blob
+                                tex={tex}
+                                color={`rgb(${r1}, ${g1}, ${b1})`}
+                                modifiers={modifiers}
+                                baseModifiers={baseModifiers}
+                            />
                         </PresentationControls>
                     </group>
-                }
+                </Float>
                 <Particles
                     count={value * 10}
-                    mouse={mouse}
-                    type={type}
                     color1={`rgb(${r1}, ${g1}, ${b1})`}
                     color2={`rgb(${r2}, ${g2}, ${b2})`}
+                    particleSpeed={baseModifiers.particle_speed * (modifiers ? modifiers.psMod : 1)}
                 />
                 <Clouds
                     color={`rgb(${r1}, ${g1}, ${b1})`}

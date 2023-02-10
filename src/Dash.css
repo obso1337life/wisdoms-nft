@@ -132,7 +132,7 @@
     appearance: none;
     background: transparent;
     cursor: pointer;
-    width: 89%;
+    width: 86%;
 }
 
 /* Removes default focus */
@@ -209,7 +209,7 @@
 }
 
 .dash-slider-double .dash-slider input {
-    width: 77% !important;
+    width: 71% !important;
 }
 
 #dash-controls-start {

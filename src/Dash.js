@@ -18,48 +18,19 @@ const dash_test_id = [
     'tz1YMPNs2WH5Gw9NZj6BgdaW2hPwQ6YjWUnf'
 ];
 
-const dash_test_objects = [
-    'torusKnot',
-    'icosahedron'
-];
-
-const dash_test_textures = [
-    '01',
-    '02',
-    '02a',
-    '03',
-    '04',
-    '05',
-    '06',
-    '07',
-    '08',
-    '09',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15'
-];
-
 // (╯°益°)╯彡┻━┻ -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 export default function Dash(props) {
     const {
         id,
         setId,
-        type,
-        setType,
         name,
         setName,
-        object,
-        setObject,
         value,
         setValue,
         baseModifiers,
         setBaseModifiers,
-        baseWisdomModifiers,
-        remount
+        baseWisdomModifiers
     } = props;
 
     const txtAreaRefName = useRef();
@@ -73,6 +44,7 @@ export default function Dash(props) {
     const inptRngeRefFI = useRef();
     const inptRngeRefFRS = useRef();
     const inptRngeRefFRE = useRef();
+    const inptRngeRefPS = useRef();
 
     const [dashVisible, setDashVisble] = useState(false);
 
@@ -83,8 +55,6 @@ export default function Dash(props) {
         if (txtAreaRefName && txtAreaRefName.current && txtAreaRefName.current.value.length) {
             setName(txtAreaRefName.current.value);
         };
-
-        // remount();
     };
 
     // handle changing test string
@@ -106,48 +76,29 @@ export default function Dash(props) {
             // update text area value
             if (txtAreaRefString && txtAreaRefString.current) txtAreaRefString.current.value = valToSet;
         };
-
-        // remount();
-    };
-
-    // handle changing test object
-    const handleDashTestObject = tst_obj => {
-        setObject(tst_obj);
-
-        // remount();
-    };
-
-    // handle changing test texture
-    const handleDashTestTexture = tst_txtr => {
-        setType(tst_txtr);
-
-        // remount();
     };
 
     // handle changing test value
     const handleDashTestValue = e => {
         setValue(e.target.value);
-
-        // remount();
     };
 
+    // handle changin a base modifier value
     const handleDashBaseModifierChange = e => {
         let baseModifiersClone = { ...baseModifiers };
 
         baseModifiersClone[e.target.name] = e.target.value;
        
         setBaseModifiers(baseModifiersClone);
-
-        // remount();
     };
 
+    // handle resetting the test value
     const handleDashValueReset = () => {
         setValue(50);
         if (value && inptRngeRefValue && inptRngeRefValue.current) inptRngeRefValue.current.value = 50;
-
-        // remount();
     };
 
+    // handle resetting the base modifier values
     const handleDashBaseModifierReset = () => {
         setBaseModifiers({ ...baseWisdomModifiers });
         if (inptRngeRefS && inptRngeRefS.current) inptRngeRefS.current.value = baseWisdomModifiers.scale;
@@ -157,9 +108,8 @@ export default function Dash(props) {
         if (inptRngeRefFRI && inptRngeRefFRI.current) inptRngeRefFRI.current.value = baseWisdomModifiers.float_rotation_intensity;
         if (inptRngeRefFI && inptRngeRefFI.current) inptRngeRefFI.current.value = baseWisdomModifiers.float_intensity;
         if (inptRngeRefFRS && inptRngeRefFRS.current) inptRngeRefFRS.current.value = baseWisdomModifiers.float_range_start;
-        if (inptRngeRefFRE && inptRngeRefFRE.current) inptRngeRefFRE.current.value = baseWisdomModifiers.ffloat_range_end;
-
-        // remount();
+        if (inptRngeRefFRE && inptRngeRefFRE.current) inptRngeRefFRE.current.value = baseWisdomModifiers.float_range_end;
+        if (inptRngeRefPS && inptRngeRefPS.current) inptRngeRefPS.current.value = baseWisdomModifiers.particle_speed;
     };
 
     // (╯°益°)╯彡┻━┻ -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -177,6 +127,7 @@ export default function Dash(props) {
         if (inptRngeRefFI && inptRngeRefFI.current) inptRngeRefFI.current.value = baseModifiers.float_intensity;
         if (inptRngeRefFRS && inptRngeRefFRS.current) inptRngeRefFRS.current.value = baseModifiers.float_range_start;
         if (inptRngeRefFRE && inptRngeRefFRE.current) inptRngeRefFRE.current.value = baseModifiers.float_range_end;
+        if (inptRngeRefPS && inptRngeRefPS.current) inptRngeRefPS.current.value = baseModifiers.particle_speed;
     }, []);
 
     // (╯°益°)╯彡┻━┻ -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -212,7 +163,7 @@ export default function Dash(props) {
 
                 <h5>_test_id</h5>
 
-                {dash_test_id.map((tst_str, idx) => <p onClick={() => handleDashTestString(tst_str)} className={`dash-test-p${id === tst_str ? ' dash-test-p-selected' : ''}`}>id_{idx + 1}</p>)}
+                {dash_test_id.map((tst_str, idx) => <p key={tst_str} onClick={() => handleDashTestString(tst_str)} className={`dash-test-p${id === tst_str ? ' dash-test-p-selected' : ''}`}>id_{idx + 1}</p>)}
                 
                 <div id="dash-txt-area-wrap">
                     <div onClick={() => handleDashTestString(null)}>❇️</div>
@@ -223,18 +174,6 @@ export default function Dash(props) {
                     ></textarea>
                 </div>
                 
-                <hr></hr>
-
-                <h5>_test_object</h5>
-
-                {dash_test_objects.map((tst_obj, idx) => <p onClick={() => handleDashTestObject(tst_obj)} className={`dash-test-p${object === tst_obj ? ' dash-test-p-selected' : ''}`}>object_{idx + 1}{` (${tst_obj})`}</p>)}
-
-                <hr></hr>
-
-                <h5>_test_texture</h5>
-
-                {dash_test_textures.map((tst_txtr, idx) => <p onClick={() => handleDashTestTexture(tst_txtr)} className={`dash-test-p${type === tst_txtr ? ' dash-test-p-selected' : ''}`}>texture_{idx + 1}</p>)}
-
                 <hr></hr>
 
                 <div className="dash-title-button">
@@ -406,6 +345,24 @@ export default function Dash(props) {
 
                             <p>{baseModifiers ? baseModifiers.float_range_end : '?'}</p>
                         </div>
+                    </div>
+                </div>
+
+                <div className="dash-slider-wrap"> 
+                    <p>particle_speed</p>
+
+                    <div className="dash-slider">
+                        <input 
+                            min="0.0001"
+                            max="0.01"
+                            step="0.0001"
+                            type="range"
+                            name="particle_speed"
+                            onChange={handleDashBaseModifierChange}
+                            ref={inptRngeRefPS}
+                        ></input>
+
+                        <p>{baseModifiers ? baseModifiers.particle_speed : '?'}</p>
                     </div>
                 </div>
             </div>

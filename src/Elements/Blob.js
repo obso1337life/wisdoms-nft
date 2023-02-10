@@ -1,30 +1,58 @@
-import React, { useEffect, useRef, forwardRef, useMemo } from 'react'
-import { useFrame, useLoader } from '@react-three/fiber'
-import * as THREE from 'three'
-import { ComputedAttribute, Html, Sampler } from '@react-three/drei'
-
-import Perlin from 'perlin.js'
+import React, { useEffect, useRef, forwardRef, useMemo } from 'react';
+import { useFrame, useLoader } from '@react-three/fiber';
+import { ComputedAttribute, Html, Sampler, useTexture } from '@react-three/drei';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+import { TextureLoader } from 'three/src/loaders/TextureLoader';
+import Perlin from 'perlin.js';
+import * as THREE from 'three';
 
 export const Blob = (props, ref) => {
     Perlin.seed(Math.random());
 
     const {
-        object,
-        type,
+        tex,
         color,
-        defaultX,
-        material
+        modifiers,
+        baseModifiers
     } = props;
-
-    console.log(object);
 
     const blobRef = useRef();
     const meshRef = useRef(null);
 
-    useEffect(() => {
-        const geom = object.type === 'custom' ? object.obj.children[0].geometry : object;
+    // object
+    const ring = useLoader(OBJLoader, './models/ring.obj');
 
-        if (object.type === 'custom') object.obj.children[0].material = material;
+    // texture
+    const texture = useTexture(`./textures/blob/${tex}/${tex}.jpg`);
+
+    // displacement and normal maps
+    let dmUrl = `./textures/blob/${tex}/DisplacementMap.png`;
+    let nmUrl = `./textures/blob/${tex}/NormalMap.png`;
+
+    const [
+        displacementMap,
+        normalMap
+    ] = useLoader(TextureLoader, [
+        dmUrl,
+        nmUrl
+    ]);
+
+    // material
+    let blobMaterial = new THREE.MeshPhysicalMaterial({
+        normalMap: normalMap,
+        displacementMap: displacementMap,
+        envMapIntensity: 0.4,
+        map: texture,
+        clearcoat: 2,
+        clearcoatRoughness: 0,
+        roughness: 0,
+        metalness: 0.2,
+    });
+
+    ring.children[0].material = blobMaterial;
+
+    useEffect(() => {
+        const geom = ring.children[0].geometry;
 
         const vertex = new THREE.Vector3();
         const normal = new THREE.Vector3();
@@ -33,32 +61,29 @@ export const Blob = (props, ref) => {
         const positionAttribute = geom.getAttribute('position');
         const normalAttribute = geom.getAttribute('normal');
 
-        console.log('looping with noise');
-
         for (let i = 0; i < positionAttribute.count; i++) {
             vertex.fromBufferAttribute(positionAttribute, i)
             normal.fromBufferAttribute(normalAttribute, i)
-            const v = vertex.multiplyScalar(0.9)
+            const v = vertex.multiplyScalar(0.5)
             const n = Perlin.simplex3(...v.toArray())
 
-            vertex.add(normal.multiplyScalar(n * 0.5))
+            let nVal = n * (modifiers ? modifiers.nMod : 1);
+
+            vertex.add(normal.multiplyScalar(nVal));
             newPositionAttribute.push(vertex.x, vertex.y, vertex.z)
         };
 
         geom.setAttribute('position', new THREE.Float32BufferAttribute(newPositionAttribute, 3));
         geom.attributes.position.needsUpdate = true;
         geom.computeVertexNormals();
-
-        return () => {
-            console.log('unmount');
-        };
     }, []);
 
     // USE THIS FOR SCALING WITH VALUE
     useFrame(({ clock }) => {
-        // console.log('clock', clock);
         const elapsedTime = clock.getElapsedTime();
-        let scale = 0.8 + ((Math.sin(elapsedTime * 0.1) * Math.sin(elapsedTime * 0.1)) * 0.3);
+        
+        let scale = 0.3 + (baseModifiers.scale * modifiers.sMod) + ((Math.sin(elapsedTime * (baseModifiers.scale_speed * modifiers.soMod)) * Math.sin(elapsedTime * (baseModifiers.scale_speed * modifiers.soMod))) * (baseModifiers.scale_offset * modifiers.ssMod));
+
         blobRef.current.scale.set(scale, scale, scale);
     });
 
@@ -66,11 +91,9 @@ export const Blob = (props, ref) => {
         <group
             ref={blobRef}
         >
-            <mesh
-                geometry={object}
-                material={material}
-                rotation={defaultX.rotation}
-                scale={defaultX.scale}
+            <primitive
+                object={ring}
+                rotation={[0, Math.PI * modifiers.ryMod, 0]}
             />
         </group>
     );

@@ -1,13 +1,11 @@
-import React, { useState, useRef, useEffect, useMemo, useLayoutEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
-import { extend, useFrame } from '@react-three/fiber'
+import { extend } from '@react-three/fiber'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 import blackMetal from '../assets/fonts/black_metal.json'
-import { gsap } from "gsap"
 import { motion } from "framer-motion-3d"
-import { MotionConfig, AnimatePresence } from "framer-motion"
+import { MotionConfig } from "framer-motion"
 import * as THREE from 'three'
-import { LoopRepeat } from 'three'
 
 const clock = new THREE.Clock()
 
@@ -113,6 +111,5 @@ export default function Text(props) {
                 </MotionConfig>
             }
         </>
-    )
-
-}
+    );
+};

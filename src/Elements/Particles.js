@@ -6,11 +6,10 @@ import { MeshTransmissionMaterial } from '@react-three/drei'
 export default function Particles(props) {
 
     const {
-        type,
         count,
-        mouse,
         color1,
-        color2
+        color2,
+        particleSpeed
     } = props
 
     const mesh = useRef()
@@ -26,18 +25,18 @@ export default function Particles(props) {
         for (let i = 0; i < count; i++) {
             const t = Math.random() * 100
             const factor = 20 + Math.random() * 100
-            const speed = 0.001 + Math.random() / 100
+            const speed = particleSpeed + Math.random() / 100
             const xFactor = -50 + Math.random() * 100
             const yFactor = -50 + Math.random() * 100
             const zFactor = -50 + Math.random() * 100
             temp.push({ t, factor, speed, xFactor, yFactor, zFactor, mx: 0, my: 0 })
         }
-        return temp
-    }, [count])
+        return temp;
+    }, [count, particleSpeed]);
+
     // The innards of this hook will run every frame
     useFrame((state) => {
-        // Makes the light follow the mouse
-        // light.current.position.set(mouse.current[0] / aspect, -mouse.current[1] / aspect, 0)
+
         // Run through the randomized data to calculate some movement
         particles.forEach((particle, i) => {
             let { t, factor, speed, xFactor, yFactor, zFactor } = particle
@@ -46,8 +45,7 @@ export default function Particles(props) {
             const a = Math.cos(t) + Math.sin(t * 1) / 100
             const b = Math.sin(t) + Math.cos(t * 2) / 100
             const s = Math.cos(t)
-            particle.mx += (mouse.current[0] - particle.mx) * 0.01
-            particle.my += (mouse.current[1] * -1 - particle.my) * 0.01
+
             // Update the dummy object
             dummy.position.set(
                 (particle.mx / 10) * a + xFactor + Math.cos((t / 10) * factor) + (Math.sin(t * 1) * factor) / 10,
@@ -59,8 +57,9 @@ export default function Particles(props) {
             dummy.updateMatrix()
             // And apply the matrix to the instanced item
             mesh.current.setMatrixAt(i, dummy.matrix)
-        })
-        mesh.current.instanceMatrix.needsUpdate = true
+        });
+        mesh.current.instanceMatrix.needsUpdate = true;
+
     });
 
     return (
@@ -69,17 +68,19 @@ export default function Particles(props) {
                 ref={light}
                 position={[0, 0, 20]}
                 distance={40}
-                intensity={3}
+                intensity={2}
                 color={color1}
             />
             <instancedMesh ref={mesh} args={[null, null, count]}>
                 <sphereGeometry args={[0.5, 64, 64]} />
                 <MeshTransmissionMaterial
                     resolution={1024}
-                    distortion={0.35}
+                    distortion={0.55}
                     color="white"
                     thickness={1}
                     anisotropy={1}
+                    // backside={true}
+                    background={new THREE.Color(color2)}
                 />
             </instancedMesh>
         </>
