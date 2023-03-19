@@ -25,7 +25,7 @@ const baseWisdomModifiers = {
 };
 
 function App() {
-    const [id, setId] = useState('obso1337 rul3s!');
+    const [id, setId] = useState('yeyeye1000');
     // particles count
     const [value, setValue] = useState(50);
     // name

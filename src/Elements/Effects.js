@@ -1,5 +1,25 @@
-import { EffectComposer, Bloom, DepthOfField, Noise, ChromaticAberration } from '@react-three/postprocessing';
-import { GlitchMode, BlendFunction } from 'postprocessing';
+import React,
+{
+    useEffect,
+    useState,
+    useRef,
+} from 'react';
+
+import {
+    extend,
+    useFrame,
+    useThree
+} from "@react-three/fiber";
+
+import {
+    EffectComposer,
+    Bloom,
+    DepthOfField,
+    Noise,
+    ChromaticAberration
+} from '@react-three/postprocessing';
+
+import { BlendFunction } from 'postprocessing';
 
 const Effects = () => {
 
@@ -17,15 +37,12 @@ const Effects = () => {
                 intensity={1.2}
                 height={350}
             />
-            {/* <Noise
-                opacity={0.8}
-            /> */}
             <ChromaticAberration
-                blendFunction={BlendFunction.NORMAL} // blend mode
-                offset={[0.002, 0.0002]} // color offset
+                blendFunction={BlendFunction.NORMAL}
+                offset={[0.002, 0.0002]}
             />
         </EffectComposer>
-    )
+    );
 
 };
 

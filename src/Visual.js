@@ -1,13 +1,37 @@
-import React, { useEffect, useState, useRef, Suspense } from 'react'
-import { Canvas, extend, useLoader, useFrame, useThree } from '@react-three/fiber'
-import { OrbitControls, PresentationControls, CameraShake, Environment, Float } from '@react-three/drei';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
-import * as THREE from 'three'
-import { Blob } from './Elements/Blob'
-import { Clouds } from './Elements/Clouds'
-import Particles from './Elements/Particles'
-import Effects from './Elements/Effects'
-import Text from './Elements/Text'
+import React,
+{
+    useEffect,
+    useState,
+    useRef,
+    Suspense
+} from 'react';
+
+import {
+    Canvas,
+    extend,
+    useLoader,
+    useFrame,
+    useThree
+} from '@react-three/fiber';
+
+import {
+    OrbitControls,
+    CameraShake,
+    Environment,
+    Float,
+    Edges,
+    Stage
+} from '@react-three/drei';
+
+import * as THREE from 'three';
+
+import { Blob } from './Elements/Blob';
+import { Clouds } from './Elements/Clouds';
+import Objet from './Elements/Objet';
+import Particles from './Elements/Particles';
+import Effects from './Elements/Effects';
+import Text from './Elements/Text';
+
 import './Visual.css';
 
 import HDR from "./abstract.hdr";
@@ -43,7 +67,7 @@ const textures = [
     '15'
 ];
 
-export default function MainVisual(props) {
+const MainVisual = (props) => {
     const {
         id,
         value,
@@ -62,6 +86,8 @@ export default function MainVisual(props) {
         baseModifiers
     } = props;
 
+    const ref = useRef();
+
     let tex = textures[Math.floor(textures.length * (perc3 / 100))];
     if (!modifiers) return null;
 
@@ -77,56 +103,58 @@ export default function MainVisual(props) {
                 penumbra={1}
                 position={[5, 12, 10]}
             />
-            <Suspense
-                fallback={null}
+            <Float
+                speed={baseModifiers.float_speed * (modifiers ? modifiers.fsMod : 1)}
+                rotationIntensity={baseModifiers.float_rotation_intensity * (modifiers ? modifiers.friMod : 1)}
+                floatIntensity={baseModifiers.float_intensity * (modifiers ? modifiers.fiMod : 1)}
+                floatingRange={[baseModifiers.float_range_start * (modifiers ? modifiers.frMod : 1), baseModifiers.float_range_end * (modifiers ? modifiers.frMod : 1)]}
             >
-                <Float
-                    speed={baseModifiers.float_speed * (modifiers ? modifiers.fsMod : 1)}
-                    rotationIntensity={baseModifiers.float_rotation_intensity * (modifiers ? modifiers.friMod : 1)}
-                    floatIntensity={baseModifiers.float_intensity * (modifiers ? modifiers.fiMod : 1)}
-                    floatingRange={[baseModifiers.float_range_start * (modifiers ? modifiers.frMod : 1), baseModifiers.float_range_end * (modifiers ? modifiers.frMod : 1)]}
+                <group
+                    position={[0, 0, -2]}
                 >
-                    <group
-                        position={[0, 0, -2]}
-                    >
-                        <PresentationControls
-                            global
-                            config={{ mass: 2, tension: 100 }}
-                            snap={{ mass: 5, tension: 100 }}
-                            rotation={[0, Math.PI / 16, 0]}
-                            polar={[-Math.PI / 4, Math.PI / 4]}
-                            azimuth={[-Math.PI / 4, Math.PI / 4]}
-                        >
-                            <Blob
-                                tex={tex}
-                                color={`rgb(${r1}, ${g1}, ${b1})`}
-                                modifiers={modifiers}
-                                baseModifiers={baseModifiers}
-                            />
-                        </PresentationControls>
-                    </group>
-                </Float>
-                <Particles
-                    count={value * 10}
-                    color1={`rgb(${r1}, ${g1}, ${b1})`}
-                    color2={`rgb(${r2}, ${g2}, ${b2})`}
-                    particleSpeed={baseModifiers.particle_speed * (modifiers ? modifiers.psMod : 1)}
-                />
-                <Clouds
-                    color={`rgb(${r1}, ${g1}, ${b1})`}
-                />
-                <Effects />
-                <Text
-                    name={name}
-                />
-                <CameraShake
-                    maxRoll={0.08}
-                    maxPitch={0.08}
-                    maxYaw={0.08}
-                />
-                <Environment files="./hdr/abstract.hdr" blur={0.5} />
-            </Suspense>
+                    {/* <Blob
+                        tex={tex}
+                        color={`rgb(${r1}, ${g1}, ${b1})`}
+                        modifiers={modifiers}
+                        baseModifiers={baseModifiers}
+                    /> */}
+                    <Objet
+                        tex={tex}
+                    />
+                </group>
+            </Float>
+            <Particles
+                count={value * 10}
+                color1={`rgb(${r1}, ${g1}, ${b1})`}
+                color2={`rgb(${r2}, ${g2}, ${b2})`}
+                particleSpeed={baseModifiers.particle_speed * (modifiers ? modifiers.psMod : 1)}
+            />
+            <Effects />
+            {/* <Text
+                name={name}
+            /> */}
+            <Clouds
+                color={`rgb(${r1}, ${g1}, ${b1})`}
+            />
+            <CameraShake
+                maxRoll={0.08}
+                maxPitch={0.08}
+                maxYaw={0.08}
+            />
+            <Environment files="./hdr/abstract.hdr" blur={0.5} />
+            <OrbitControls
+                makeDefault
+                autoRotate
+                autoRotateSpeed={0.5}
+                enableZoom={true}
+                minDistance={5}
+                maxDistance={20}
+                minPolarAngle={Math.PI * 0.35}
+                maxPolarAngle={Math.PI * 0.65}
+            />
         </Canvas>
     )
 
 };
+
+export default MainVisual;

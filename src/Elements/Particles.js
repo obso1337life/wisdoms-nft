@@ -85,4 +85,4 @@ export default function Particles(props) {
             </instancedMesh>
         </>
     )
-}
+};

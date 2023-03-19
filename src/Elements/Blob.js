@@ -48,34 +48,38 @@ export const Blob = (props, ref) => {
         roughness: 0,
         metalness: 0.2,
     });
+    // blobMaterial = new THREE.MeshStandardMaterial({
+    //     color: 'hotpink',
+    //     roughness: 1
+    // });
 
     ring.children[0].material = blobMaterial;
 
     useEffect(() => {
-        const geom = ring.children[0].geometry;
+        // const geom = ring.children[0].geometry;
 
-        const vertex = new THREE.Vector3();
-        const normal = new THREE.Vector3();
-        let newPositionAttribute = [];
+        // const vertex = new THREE.Vector3();
+        // const normal = new THREE.Vector3();
+        // let newPositionAttribute = [];
 
-        const positionAttribute = geom.getAttribute('position');
-        const normalAttribute = geom.getAttribute('normal');
+        // const positionAttribute = geom.getAttribute('position');
+        // const normalAttribute = geom.getAttribute('normal');
 
-        for (let i = 0; i < positionAttribute.count; i++) {
-            vertex.fromBufferAttribute(positionAttribute, i)
-            normal.fromBufferAttribute(normalAttribute, i)
-            const v = vertex.multiplyScalar(0.5)
-            const n = Perlin.simplex3(...v.toArray())
+        // for (let i = 0; i < positionAttribute.count; i++) {
+        //     vertex.fromBufferAttribute(positionAttribute, i)
+        //     normal.fromBufferAttribute(normalAttribute, i)
+        //     const v = vertex.multiplyScalar(0.5)
+        //     const n = Perlin.simplex3(...v.toArray())
 
-            let nVal = n * (modifiers ? modifiers.nMod : 1);
+        //     let nVal = n * (modifiers ? modifiers.nMod : 1);
 
-            vertex.add(normal.multiplyScalar(nVal));
-            newPositionAttribute.push(vertex.x, vertex.y, vertex.z)
-        };
+        //     vertex.add(normal.multiplyScalar(nVal));
+        //     newPositionAttribute.push(vertex.x, vertex.y, vertex.z)
+        // };
 
-        geom.setAttribute('position', new THREE.Float32BufferAttribute(newPositionAttribute, 3));
-        geom.attributes.position.needsUpdate = true;
-        geom.computeVertexNormals();
+        // geom.setAttribute('position', new THREE.Float32BufferAttribute(newPositionAttribute, 3));
+        // geom.attributes.position.needsUpdate = true;
+        // geom.computeVertexNormals();
     }, []);
 
     // USE THIS FOR SCALING WITH VALUE
