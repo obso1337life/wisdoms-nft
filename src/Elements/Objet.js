@@ -50,42 +50,31 @@ const Objet = (props) => {
     ]);
 
     return (
-        <group>
+        <group
+            position={[0, 0, 0]}
+        >
             <Cone
-                position={[0, 0, 0]}
-                scale={1.15}
+                position={[0, 0, -1.2]}
+                scale={0.41}
                 settings={[4, 1, 100, 1, 'true']}
-                color={[20, 0.5, 20]}
-                opacity={0.1}
-                move={false}
-                spin={{
-                    dir: true,
-                    speed: 0.002
-                }}
-                wireframe={true}
-                tex={tex}
-            />
-            {/* <BigRing
-                position={[0, 0, 0.3]}
-                scale={1.5}
-                ringScale={[1.4, 0.9, 1]}
-                ringPos={4}
-                settings={[0.5, 1, 32]}
-                color={[0, 0, 5]}
+                color={[5, 5, 0]}
                 opacity={0.2}
+                move={false}
                 wireframe={false}
-                num={14}
-                edges={true}
                 tex={tex}
-                spin={0.0005}
-            /> */}
+                edges={true}
+            />
             <Shape
+                position={[0, 0, 0.5]}
                 opacity={0}
+                opacityAnimBase={1.4}
+                opacityAnimSpeed={0.5}
                 scale={1.1}
-                color={[0, 0.5, 0.5]}
+                color={[0.2, 1, 0.1]}
                 displacementMap={displacementMap}
                 normalMap={normalMap}
                 edges={true}
+                spin={0.005}
             />
             <BigRing
                 position={[0, 0, 0.4]}
@@ -97,11 +86,23 @@ const Objet = (props) => {
                 wireframe={false}
                 opacity={0.6}
                 num={8}
-                edges={true}
+                edges={false}
                 tex={tex}
                 spin={null}
             />
-            <Circle
+            <Shape
+                position={[0, 0, -1.5]}
+                opacity={0}
+                opacityAnimBase={1.05}
+                opacityAnimSpeed={0.3}
+                scale={0.2}
+                color={[0.5, 0, 0.2]}
+                displacementMap={displacementMap}
+                normalMap={normalMap}
+                edges={true}
+                spin={-0.002}
+            />
+            {/* <Circle
                 position={[0, 0, 0.1]}
                 scale={1}
                 settings={[1.3, 32]}
@@ -110,46 +111,20 @@ const Objet = (props) => {
                 opacity={0}
                 edges={false}
                 move={false}
-            />
-            <BigRing
+            /> */}
+            {/* <BigRing
                 position={[0, 0, 0.7]}
                 scale={0.5}
                 ringScale={[1, 1, 1]}
                 ringPos={2.5}
                 settings={[0.5, 1, 32]}
-                color={[0, 0, 0]}
+                color={[1.5, 0, 0.45]}
                 wireframe={false}
                 opacity={1}
                 num={14}
                 edges={false}
                 tex={tex}
                 spin={-0.002}
-            />
-            {/* <Disc
-                position={[0, 0, 0.7]}
-                scale={0.15}
-                settings={[2, 1, 64, 2, 3, 3]}
-                color={[20, 0.5, 20]}
-                move={0.008}
-                spin={{
-                    dir: true,
-                    speed: 0.002
-                }}
-                wireframe={false}
-                tex={tex}
-            /> */}
-            {/* <Disc
-                position={[0, 0, 1]}
-                scale={0.5}
-                settings={[3, 1, 64, 2, 3, 3]}
-                color={[0, 0, 20]}
-                move={0.005}
-                spin={{
-                    dir: false,
-                    speed: 0.005
-                }}
-                wireframe={true}
-                tex={tex}
             /> */}
         </group>
     );

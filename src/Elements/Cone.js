@@ -1,3 +1,9 @@
+import React,
+{
+    useEffect,
+    useRef,
+} from 'react';
+
 import {
     useFrame,
     useLoader
@@ -12,60 +18,84 @@ import {
     TextureLoader
 } from 'three/src/loaders/TextureLoader';
 
+import {
+    OBJLoader
+} from 'three/examples/jsm/loaders/OBJLoader';
+
 import * as THREE from 'three';
 
 const Cone = (props) => {
 
     const {
+        position,
         settings,
         scale,
         wireframe,
         color,
         tex,
-        opacity
+        opacity,
+        edges
     } = props;
 
-    // texture
-    const texture = useTexture(`./textures/blob/${tex}/${tex}.jpg`);
+    const materialRef = useRef();
 
-    // displacement and normal maps
-    let dmUrl = `./textures/blob/${tex}/DisplacementMap.png`;
-    let nmUrl = `./textures/blob/${tex}/NormalMap.png`;
-
-    const [
-        displacementMap,
-        normalMap
-    ] = useLoader(TextureLoader, [
-        dmUrl,
-        nmUrl
-    ]);
+    const cone = useLoader(OBJLoader, './models/cone.obj');
+    const geom = cone.children[0].geometry;
 
     return (
-        <mesh
-            rotation={[Math.PI * -0.5, 0, 0]}
+        <group
+            position={position}
+            rotation={[Math.PI * 0.5, 0, 0]}
             scale={scale}
         >
-            <coneGeometry args={settings} />
-            <meshPhysicalMaterial
-                normalMap={normalMap}
-                displacementMap={displacementMap}
-                // map={texture}
-                color={color}
-                transparent
-                opacity={opacity}
-                wireframe={wireframe}
-                side={THREE.DoubleSide}
-            />
-            <Edges
-                scale={0.95}
-                threshold={10}
+            <mesh
+                geometry={geom}
             >
-                <lineBasicMaterial
+                <meshPhysicalMaterial
                     color={color}
-                    toneMapped={false}
+                    transparent
+                    opacity={opacity}
+                    wireframe={wireframe}
+                    side={THREE.DoubleSide}
                 />
-            </Edges>
-        </mesh>
+                {edges &&
+                    <Edges
+                        scale={1}
+                        threshold={50}
+                    >
+                        <lineBasicMaterial
+                            ref={materialRef}
+                            color={color}
+                            toneMapped={false}
+                            transparent
+                            opacity={0.1}
+                        />
+                    </Edges>
+                }
+            </mesh>
+        </group>
+        // <mesh
+        //     rotation={[Math.PI * -0.5, 0, 0]}
+        //     scale={scale}
+        // >
+        //     <coneGeometry args={settings} />
+        //     <meshPhysicalMaterial
+        //         color={color}
+        //         transparent
+        //         opacity={opacity}
+        //         wireframe={wireframe}
+        //         side={THREE.DoubleSide}
+        //     />
+        //     <Edges
+        //         scale={0.95}
+        //         threshold={10}
+        //     >
+        //         <lineBasicMaterial
+        //             color={color}
+        //             toneMapped={false}
+        //         />
+        //     </Edges>
+        // </mesh>
     );
 
 };

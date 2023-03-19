@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import React, { useRef, useMemo } from 'react'
 import { useFrame, useThree, useLoader } from '@react-three/fiber'
-import { MeshTransmissionMaterial } from '@react-three/drei'
+import { MeshTransmissionMaterial, Trail } from '@react-three/drei'
 
 export default function Particles(props) {
 
@@ -71,18 +71,30 @@ export default function Particles(props) {
                 intensity={2}
                 color={color1}
             />
-            <instancedMesh ref={mesh} args={[null, null, count]}>
-                <sphereGeometry args={[0.5, 64, 64]} />
-                <MeshTransmissionMaterial
-                    resolution={1024}
-                    distortion={0.55}
-                    color="white"
-                    thickness={1}
-                    anisotropy={1}
-                    // backside={true}
-                    background={new THREE.Color(color2)}
-                />
-            </instancedMesh>
+            <Trail
+                width={0.2} // Width of the line
+                color={'hotpink'} // Color of the line
+                length={1} // Length of the line
+                decay={1} // How fast the line fades away
+                local={false} // Wether to use the target's world or local positions
+                stride={0} // Min distance between previous and current point
+                interval={1} // Number of frames to wait before next calculation
+                target={undefined} // Optional target. This object will produce the trail.
+                attenuation={(width) => width} // A function to define the width in each point along it.
+            >
+                <instancedMesh ref={mesh} args={[null, null, count]}>
+                    <sphereGeometry args={[0.5, 64, 64]} />
+                    <MeshTransmissionMaterial
+                        resolution={1024}
+                        distortion={0.55}
+                        color="white"
+                        thickness={1}
+                        anisotropy={1}
+                        // backside={true}
+                        background={new THREE.Color(color2)}
+                    />
+                </instancedMesh>
+            </Trail>
         </>
     )
 };

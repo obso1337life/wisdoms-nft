@@ -144,8 +144,8 @@ const MainVisual = (props) => {
                 autoRotate
                 autoRotateSpeed={0.5}
                 enableZoom={true}
-                minDistance={5}
-                maxDistance={20}
+                minDistance={8}
+                maxDistance={25}
                 minPolarAngle={Math.PI * 0.35}
                 maxPolarAngle={Math.PI * 0.65}
             />

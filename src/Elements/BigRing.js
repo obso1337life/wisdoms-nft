@@ -29,6 +29,7 @@ const BigRing = (props) => {
         position,
         settings,
         color,
+        edgesColor,
         move,
         spin,
         wireframe,
@@ -83,7 +84,7 @@ const BigRing = (props) => {
                         threshold={10}
                     >
                         <lineBasicMaterial
-                            color={color}
+                            color={edgesColor}
                             toneMapped={false}
                         />
                     </Edges>
