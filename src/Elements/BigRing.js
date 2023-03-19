@@ -1,3 +1,9 @@
+import React,
+{
+    useEffect,
+    useRef,
+} from 'react';
+
 import {
     useFrame,
     useLoader
@@ -31,6 +37,8 @@ const BigRing = (props) => {
         num,
         edges
     } = props;
+
+    const ref = useRef();
 
     const Ring = (props) => {
 
@@ -81,12 +89,20 @@ const BigRing = (props) => {
                     </Edges>
                 }
             </mesh>
-        )
+        );
 
-    }
+    };
+
+    useFrame(({ clock }) => {
+        if (ref && ref.current) {
+            ref.current.rotation.z = ref.current.rotation.z + spin;
+            // if (move) ref.current.position.z += (Math.sin(clock.elapsedTime * 2) * move);
+        };
+    });
 
     return (
         <group
+            ref={ref}
             position={position}
             scale={scale}
         >

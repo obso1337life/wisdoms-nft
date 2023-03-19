@@ -60,6 +60,7 @@ const Objet = (props) => {
                 num={14}
                 edges={true}
                 tex={tex}
+                spin={0.0005}
             />
             <BigRing
                 position={[0, 0, 0.4]}
@@ -73,6 +74,7 @@ const Objet = (props) => {
                 num={8}
                 edges={true}
                 tex={tex}
+                spin={null}
             />
             <Circle
                 position={[0, 0, 0.1]}
@@ -95,6 +97,7 @@ const Objet = (props) => {
                 num={14}
                 edges={false}
                 tex={tex}
+                spin={-0.002}
             />
             {/* <Disc
                 position={[0, 0, 1]}
