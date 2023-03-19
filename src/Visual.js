@@ -130,9 +130,6 @@ const MainVisual = (props) => {
                 particleSpeed={baseModifiers.particle_speed * (modifiers ? modifiers.psMod : 1)}
             />
             <Effects />
-            {/* <Text
-                name={name}
-            /> */}
             <Clouds
                 color={`rgb(${r1}, ${g1}, ${b1})`}
             />

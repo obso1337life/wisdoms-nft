@@ -47,11 +47,9 @@ export const Blob = (props, ref) => {
         clearcoatRoughness: 0,
         roughness: 0,
         metalness: 0.2,
+        transparent: true,
+        opacity: 0.7
     });
-    // blobMaterial = new THREE.MeshStandardMaterial({
-    //     color: 'hotpink',
-    //     roughness: 1
-    // });
 
     ring.children[0].material = blobMaterial;
 
@@ -97,7 +95,8 @@ export const Blob = (props, ref) => {
         >
             <primitive
                 object={ring}
-                rotation={[0, Math.PI * modifiers.ryMod, 0]}
+                rotation={[0, Math.PI * 0.5, 0]}
+                // rotation={[0, Math.PI * modifiers.ryMod, 0]}
             />
         </group>
     );

@@ -69,8 +69,8 @@ const BigRing = (props) => {
             >
                 <ringGeometry args={settings} />
                 <meshPhysicalMaterial
-                    normalMap={normalMap}
-                    displacementMap={displacementMap}
+                    // normalMap={normalMap}
+                    // displacementMap={displacementMap}
                     color={color}
                     transparent
                     opacity={opacity}
