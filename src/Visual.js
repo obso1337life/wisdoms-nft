@@ -97,12 +97,12 @@ const MainVisual = (props) => {
             dpr={[1, 2]}
             camera={{ position: [0, 0, 5], fov: 45 }}
         >
-            <spotLight
+            {/* <spotLight
                 intensity={0.8}
                 angle={0.2}
                 penumbra={1}
                 position={[5, 12, 10]}
-            />
+            /> */}
             <Float
                 speed={baseModifiers.float_speed * (modifiers ? modifiers.fsMod : 1)}
                 rotationIntensity={baseModifiers.float_rotation_intensity * (modifiers ? modifiers.friMod : 1)}

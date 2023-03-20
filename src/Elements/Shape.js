@@ -40,14 +40,15 @@ const Shape = (props) => {
 
     const ref = useRef();
     const materialRef = useRef();
+    const lightRef = useRef();
 
     const ring = useLoader(OBJLoader, './models/ring.obj');
     const geom = ring.children[0].geometry;
 
     useFrame(({ clock }) => {
-        if (materialRef && materialRef.current) {
-            materialRef.current.opacity = 0.5 * (opacityAnimBase + Math.sin(clock.elapsedTime * opacityAnimSpeed));
+        if (ref && ref.current && materialRef && materialRef.current) {
             ref.current.rotation.x = ref.current.rotation.x + spin;
+            materialRef.current.opacity = 0.5 * (opacityAnimBase + Math.sin(clock.elapsedTime * opacityAnimSpeed));
             // if (move) ref.current.position.z += (Math.sin(clock.elapsedTime * 2) * move);
         };
     });
@@ -68,6 +69,34 @@ const Shape = (props) => {
                     opacity={opacity}
                     wireframe={wireframe}
                     side={THREE.DoubleSide}
+                />
+                <pointLight
+                    ref={lightRef}
+                    position={[0, 4.5, 0]}
+                    intensity={2}
+                    color={[10, 2, 5]}
+                    distance={2}
+                />
+                <pointLight
+                    ref={lightRef}
+                    position={[0, -4.5, 0]}
+                    intensity={2}
+                    color={[10, 2, 5]}
+                    distance={2}
+                />
+                <pointLight
+                    ref={lightRef}
+                    position={[0, 0, 4]}
+                    intensity={2}
+                    color={[10, 2, 5]}
+                    distance={2}
+                />
+                <pointLight
+                    ref={lightRef}
+                    position={[0, 0, -4]}
+                    intensity={2}
+                    color={[10, 2, 5]}
+                    distance={2}
                 />
                 {edges &&
                     <Edges
