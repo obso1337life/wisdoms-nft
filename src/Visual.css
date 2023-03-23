@@ -20,6 +20,7 @@
     align-items: flex-start;
     justify-content: end;
     pointer-events: all;
+    border-radius: 10px;
 }
 
 .loading-complete {
