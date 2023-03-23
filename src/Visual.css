@@ -21,6 +21,7 @@
     justify-content: end;
     pointer-events: all;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .loading-complete {

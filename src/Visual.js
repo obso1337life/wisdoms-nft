@@ -123,7 +123,7 @@ const MainVisual = (props) => {
                 background: `radial-gradient(circle, rgba(${r2}, ${g2}, ${b2}, 0.8) 15%, transparent 64%)`
             }}
         >
-            <div id="visual-loading" className={!loadingStatus?.active ? 'loading-complete' : null}>
+            <div id="visual-loading" className={!loadingStatus?.active && false ? 'loading-complete' : null}>
                 <p id="animoji">{`(∪｡∪)｡｡｡`}</p>
                 <div className='loading-bar-wrap'><div style={{ transform: `translateX(-${100 - ((loadingStatus.loaded / loadingStatus?.total) * 100)})` }}></div></div>
             </div>
