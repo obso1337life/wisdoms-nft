@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
 import Dash from './Dash';
-import Info from './Info';
 import Visual from './Visual';
 
 import {
@@ -87,9 +86,14 @@ function App() {
                 setBaseModifiers={setBaseModifiers}
                 baseWisdomModifiers={{ ...baseWisdomModifiers }}
             />
-            <Info
+
+            <Visual
                 id={id}
+                value={value}
+                name={name}
                 perc1={perc1}
+                perc2={perc2}
+                perc3={perc3}
                 r1={r1}
                 r2={r2}
                 g1={g1}
@@ -97,32 +101,10 @@ function App() {
                 b1={b1}
                 b2={b2}
                 a1={a1}
+                // TODO: need to apply these values
+                modifiers={modifiers}
+                baseModifiers={baseModifiers}
             />
-            <div
-                id="visual"
-                style={{
-                    background: `radial-gradient(circle, rgba(${r2}, ${g2}, ${b2}, 0.8) 15%, transparent 64%)`
-                }}
-            >
-                <Visual
-                    id={id}
-                    value={value}
-                    name={name}
-                    perc1={perc1}
-                    perc2={perc2}
-                    perc3={perc3}
-                    r1={r1}
-                    r2={r2}
-                    g1={g1}
-                    g2={g2}
-                    b1={b1}
-                    b2={b2}
-                    a1={a1}
-                    // TODO: need to apply these values
-                    modifiers={modifiers}
-                    baseModifiers={baseModifiers}
-                />
-            </div>
         </div>
     );
 }
