@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 
-import Dash from './Dash';
-import Visual from './Visual';
+import Dash from "./Dash";
+import Visual from "./Visual";
 
 import {
     extrapolateAndReturnValuesFromString,
-    generateAndReturnWisdomVariables
-} from './WisdomUtils';
-
-import './App.css';
+    generateAndReturnWisdomVariables,
+} from "./WisdomUtils";
 
 // set the base values for the wisdom tokens, these will be affected by modifier values (which are created from the wisdom hash)
 const baseWisdomModifiers = {
@@ -20,15 +18,15 @@ const baseWisdomModifiers = {
     float_intensity: 0.5,
     float_range_start: -1,
     float_range_end: 1,
-    particle_speed: 0.0001
+    particle_speed: 0.0001,
 };
 
 function App() {
-    const [id, setId] = useState('yeyeye1000');
+    const [id, setId] = useState("yeyeye1000");
     // particles count
     const [value, setValue] = useState(50);
     // name
-    const [name, setName] = useState('Chev Chelios');
+    const [name, setName] = useState("Chev Chelios");
     const [perc1, setPerc1] = useState(null);
     const [perc2, setPerc2] = useState(null);
     const [perc3, setPerc3] = useState(null);
@@ -44,14 +42,18 @@ function App() {
     const [wisdomValues, setWisdomValues] = useState(null);
     const [modifiers, setModifiers] = useState(null);
 
-    const [baseModifiers, setBaseModifiers] = useState({ ...baseWisdomModifiers });
+    const [baseModifiers, setBaseModifiers] = useState({
+        ...baseWisdomModifiers,
+    });
 
     useEffect(() => {
-
         const generatedValues = extrapolateAndReturnValuesFromString(id);
         setWisdomValues(generatedValues);
 
-        const valuesToSet = generateAndReturnWisdomVariables(id, generatedValues);
+        const valuesToSet = generateAndReturnWisdomVariables(
+            id,
+            generatedValues
+        );
 
         setPerc1(valuesToSet.perc1);
         setPerc2(valuesToSet.perc2);
@@ -72,10 +74,10 @@ function App() {
         <div
             id="app"
             style={{
-                background: `linear-gradient(${perc1}deg, rgba(${r1}, ${g1}, ${b1}, 1) 7%, rgba(${r2}, ${g2}, ${b2}, ${a1}) 25%, rgba(${r1}, ${g2}, ${b2}, 1) 64%)`
+                background: `linear-gradient(${perc1}deg, rgba(${r1}, ${g1}, ${b1}, 1) 7%, rgba(${r2}, ${g2}, ${b2}, ${a1}) 25%, rgba(${r1}, ${g2}, ${b2}, 1) 64%)`,
             }}
         >
-            <Dash
+            {/* <Dash
                 id={id}
                 setId={setId}
                 name={name}
@@ -85,7 +87,7 @@ function App() {
                 baseModifiers={baseModifiers}
                 setBaseModifiers={setBaseModifiers}
                 baseWisdomModifiers={{ ...baseWisdomModifiers }}
-            />
+            /> */}
 
             <Visual
                 id={id}

@@ -56,7 +56,7 @@
     font-style: italic;
 }
 
-#dash-controls>hr {
+#dash-controls > hr {
     border-top: 1px dotted lemonchiffon;
     border-bottom: none;
     border-left: none;
@@ -83,7 +83,7 @@
 }
 
 .dash-test-p-selected::before {
-    content: '_';
+    content: "_";
 }
 
 .dash-test-p:hover {
@@ -96,7 +96,7 @@
     height: 100px;
 }
 
-#dash-txt-area-wrap>div {
+#dash-txt-area-wrap > div {
     position: absolute;
     top: 5px;
     right: 5px;
@@ -106,7 +106,7 @@
     transition: filter 0.3s, transform 0.3s;
 }
 
-#dash-txt-area-wrap>div:hover {
+#dash-txt-area-wrap > div:hover {
     filter: contrast(130%);
     transform: rotate(20deg);
 }
@@ -218,7 +218,7 @@
 
 .dash-title-button {
     display: flex;
-    width: 100%;;
+    width: 100%;
     align-items: center;
     justify-content: space-between;
 }

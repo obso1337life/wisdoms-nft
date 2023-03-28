@@ -1,9 +1,9 @@
 import React, {
     useState,
-    useEffect
+    useEffect,
     // TODO: remove
     // Suspense
-} from 'react';
+} from "react";
 
 import {
     Canvas,
@@ -12,7 +12,7 @@ import {
     // useLoader,
     // useFrame,
     // useThree
-} from '@react-three/fiber';
+} from "@react-three/fiber";
 
 import {
     OrbitControls,
@@ -22,21 +22,21 @@ import {
     // TODO: remove
     // Edges,
     // Stage
-} from '@react-three/drei';
+} from "@react-three/drei";
 
 // TODO: remove
 // import * as THREE from 'three';
 
 // TODO: remove
 // import { Blob } from './Elements/Blob';
-import { Clouds } from './Elements/Clouds';
-import Objet from './Elements/Objet';
-import Particles from './Elements/Particles';
-import Effects from './Elements/Effects';
+import { Clouds } from "./Elements/Clouds";
+import Objet from "./Elements/Objet";
+import Particles from "./Elements/Particles";
+import Effects from "./Elements/Effects";
 // TODO: remove
 // import Text from './Elements/Text';
 
-import './Visual.css';
+import "./Visual.module.css";
 
 // import HDR from "./abstract.hdr";
 
@@ -54,22 +54,22 @@ import './Visual.css';
 // };
 
 const textures = [
-    '01',
-    '02',
-    '02a',
-    '03',
-    '04',
-    '05',
-    '06',
-    '07',
-    '08',
-    '09',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15'
+    "01",
+    "02",
+    "02a",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
 ];
 
 const MainVisual = (props) => {
@@ -88,14 +88,14 @@ const MainVisual = (props) => {
         b2,
         a1,
         modifiers,
-        baseModifiers
+        baseModifiers,
     } = props;
 
     const [canvasPresent, setCanvasPresent] = useState(false);
     const [loadingStatus, setLoadingStatus] = useState({
         active: true,
         loaded: 0,
-        total: 0
+        total: 0,
     });
 
     // (╯°益°)╯彡┻━┻ -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -108,7 +108,7 @@ const MainVisual = (props) => {
     // (╯°益°)╯彡┻━┻ -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
     useEffect(() => {
-        let timeout = setTimeout(() =>setCanvasPresent(true), 400);
+        let timeout = setTimeout(() => setCanvasPresent(true), 400);
 
         return () => clearTimeout(timeout);
     }, []);
@@ -120,16 +120,30 @@ const MainVisual = (props) => {
         <div
             id="visual"
             style={{
-                background: `radial-gradient(circle, rgba(${r2}, ${g2}, ${b2}, 0.8) 15%, transparent 64%)`
+                background: `radial-gradient(circle, rgba(${r2}, ${g2}, ${b2}, 0.8) 15%, transparent 64%)`,
             }}
         >
-            <div id="visual-loading" className={!loadingStatus?.active ? 'loading-complete' : null}>
+            <div
+                id="visual-loading"
+                className={!loadingStatus?.active ? "loading-complete" : null}
+            >
                 <p id="animoji">{`(∪｡∪)｡｡｡`}</p>
-                <div className='loading-bar-wrap'><div style={{ transform: `translateX(-${100 - ((loadingStatus.loaded / loadingStatus?.total) * 100)})` }}></div></div>
+                <div className="loading-bar-wrap">
+                    <div
+                        style={{
+                            transform: `translateX(-${
+                                100 -
+                                (loadingStatus.loaded / loadingStatus?.total) *
+                                    100
+                            })`,
+                        }}
+                    ></div>
+                </div>
             </div>
 
-            {canvasPresent &&
+            {canvasPresent && (
                 <Canvas
+                    className={"visual-canvas"}
                     shadows
                     dpr={[1, 2]}
                     camera={{ position: [0, 0, 5], fov: 45 }}
@@ -142,14 +156,26 @@ const MainVisual = (props) => {
                         position={[5, 12, 10]}
                     /> */}
                     <Float
-                        speed={baseModifiers.float_speed * (modifiers ? modifiers.fsMod : 1)}
-                        rotationIntensity={baseModifiers.float_rotation_intensity * (modifiers ? modifiers.friMod : 1)}
-                        floatIntensity={baseModifiers.float_intensity * (modifiers ? modifiers.fiMod : 1)}
-                        floatingRange={[baseModifiers.float_range_start * (modifiers ? modifiers.frMod : 1), baseModifiers.float_range_end * (modifiers ? modifiers.frMod : 1)]}
+                        speed={
+                            baseModifiers.float_speed *
+                            (modifiers ? modifiers.fsMod : 1)
+                        }
+                        rotationIntensity={
+                            baseModifiers.float_rotation_intensity *
+                            (modifiers ? modifiers.friMod : 1)
+                        }
+                        floatIntensity={
+                            baseModifiers.float_intensity *
+                            (modifiers ? modifiers.fiMod : 1)
+                        }
+                        floatingRange={[
+                            baseModifiers.float_range_start *
+                                (modifiers ? modifiers.frMod : 1),
+                            baseModifiers.float_range_end *
+                                (modifiers ? modifiers.frMod : 1),
+                        ]}
                     >
-                        <group
-                            position={[0, 0, -2]}
-                        >
+                        <group position={[0, 0, -2]}>
                             {/* // TODO: remove */}
                             {/* <Blob
                                 tex={tex}
@@ -164,21 +190,18 @@ const MainVisual = (props) => {
                             />
                         </group>
                     </Float>
-                    <Particles
+                    {/* <Particles
                         count={value * 10}
                         color1={`rgb(${r1}, ${g1}, ${b1})`}
                         color2={`rgb(${r2}, ${g2}, ${b2})`}
-                        particleSpeed={baseModifiers.particle_speed * (modifiers ? modifiers.psMod : 1)}
-                    />
+                        particleSpeed={
+                            baseModifiers.particle_speed *
+                            (modifiers ? modifiers.psMod : 1)
+                        }
+                    /> */}
                     <Effects />
-                    <Clouds
-                        color={`rgb(${r1}, ${g1}, ${b1})`}
-                    />
-                    <CameraShake
-                        maxRoll={0.08}
-                        maxPitch={0.08}
-                        maxYaw={0.08}
-                    />
+                    {/* <Clouds color={`rgb(${r1}, ${g1}, ${b1})`} /> */}
+                    <CameraShake maxRoll={0.08} maxPitch={0.08} maxYaw={0.08} />
                     <Environment files="./hdr/abstract.hdr" blur={0.5} />
                     <OrbitControls
                         makeDefault
@@ -191,7 +214,7 @@ const MainVisual = (props) => {
                         maxPolarAngle={Math.PI * 0.65}
                     />
                 </Canvas>
-            }
+            )}
         </div>
     );
 };

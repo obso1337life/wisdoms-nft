@@ -40,10 +40,10 @@
 
 @keyframes animojiZzZ {
     from {
-        content: 'zZz'
+        content: "zZz";
     }
     to {
-        content: 'ZzZ'
+        content: "ZzZ";
     }
 }
 
@@ -54,14 +54,19 @@
 }
 
 #animoji::after {
-    content: 'zZz';
+    content: "zZz";
     animation: animojiZzZ 0.5s linear infinite;
 }
 
 .loading-bar-wrap > div {
     height: 100%;
     width: 100%;
-    background: linear-gradient(340deg, rgba(0, 10, 20, 1), 1%, rgba(100, 110, 120, 1));
+    background: linear-gradient(
+        340deg,
+        rgba(0, 10, 20, 1),
+        1%,
+        rgba(100, 110, 120, 1)
+    );
     transform: translateX(-100%);
     border-top-right-radius: 35px;
     border-bottom-right-radius: 35px;
@@ -74,7 +79,8 @@
     transform: translateX(0%);
 }
 
-canvas {
+.visual-canvas {
+    height: 600px;
     pointer-events: auto;
     touch-action: none;
     border-radius: 10px !important;
@@ -98,23 +104,18 @@ canvas {
     user-select: none;
     pointer-events: none;
     /* animation: blur 10s 4.2s ease-in-out infinite; */
-
 }
 
 @media (orientation: landscape) {
-
     #visual {
         width: 90vh;
         height: 90vh;
     }
-
 }
 
 @media (orientation: portrait) {
-
     #visual {
         width: 90vw;
         height: 90vw;
     }
-
 }
